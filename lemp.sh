@@ -134,14 +134,6 @@ rm -r /home/lemp/lempPHP7-3-12.tar.gz
 sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
 
-if [ $MariaDB = "y" ];then
-wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
-sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
-sudo mv  /home/lemp/mariadb-10.5.0-linux-systemd-x86_64 /home/lemp/mysql
-rm -r /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
-rm -r /home/lemp/mysql/support-files/mysql.server
-mv /home/lemp/mysql.server /home/lemp/mysql/support-files/
-fi
 
 if [[ $openssl != *"1.1.1"* ]]; then
 #wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz  -P /home/lemp/ 
