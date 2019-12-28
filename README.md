@@ -13,12 +13,12 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     ProFTPD    Version 1.3.5
     phpmyadmin Version 4.9.3
 ## install:
-     wget https://raw.githubusercontent.com/lemp-info/lemp/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
+     wget https://raw.githubusercontent.com/lemp-info/lempPHP7.3.12/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
      
 ## Path
-     Lemp: /home/lemp
-     www: /home/lemp/www 
-     
+     Lemp:           /home/lemp
+     www:            /home/lemp/www 
+     MariaDB my.cnf: /home/lemp/mysql/my.cnf
      
  ## Usage: 
      sudo /etc/init.d/lemp {start|stop|restart|status}
@@ -37,6 +37,18 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      2. ftp://ipadderss/ 
      username: lemp
      password: lemp password
+     
+## set MySQL root password 
+     mysql -u root
+     use mysql;
+     delete from user where User='root';
+     DELETE FROM mysql.user WHERE User='';
+     flush privileges;
+     grant all privileges on *.* to 'root'@'localhost' identified by 'NewPassword' with grant option;
+     grant all privileges on *.* to 'root'@'127.0.0.1' identified by 'NewPassword' with grant option;
+     grant all privileges on *.* to 'root'@'::1' identified by 'NewPassword' with grant option;
+     flush privileges;
+     \q
      
 ### www.lemp.info
 ### www.nginxfriends.org
