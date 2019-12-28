@@ -40,6 +40,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      
 ## set MySQL root password 
      mysql -u root
+     
      use mysql;
      delete from user where User='root';
      DELETE FROM mysql.user WHERE User='';
