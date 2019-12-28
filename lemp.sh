@@ -126,7 +126,7 @@ mv /home/lemp/mysql.server /home/lemp/mysql/support-files/
 
 
 if [ "$osrelease" = "16.04" ] || [ "$osrelease" = "14.04" ]; then
-wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz  -P /home/lemp/ 
+#wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz  -P /home/lemp/ 
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
 cd /home/lemp/openssl-1.1.1c/
 ./config
