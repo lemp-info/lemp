@@ -4,6 +4,8 @@ jeshile='\e[40;38;5;82m'
 jo='\e[0m'  
 red='\e[31m'
 yellow='\e[0;93m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
 echo " "
 echo -e "${yellow} ???????????????????????????????????????????????? \e[0m"
@@ -26,6 +28,7 @@ osrelease=$(lsb_release -sr)
 oscodename=$(lsb_release -sc) 
 osDisc=$(lsb_release -sd)
 arch=$(uname -m)
+openssl=$(openssl version)
 file=/etc/rc.local
 
 echo " "
@@ -50,7 +53,20 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?         NEW password for your MySQL          ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
-read -p "New password for the MySQL "root" user: " SQL
+
+read -p "Install MariaDB ?  (y/n)" MariaDB
+if [ $MariaDB = "y" ];then
+while true; do
+    echo 
+ read -s -p "New password for the MySQL "root" user: " SQL
+  echo 
+ read -s -p "Repeat password for the MySQL "root" user: " SQL2
+ echo " "
+    [ "$SQL" = "$SQL2" ] && break
+echo -e "${red}Please try again${NC}"
+done
+fi
+			
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
@@ -111,21 +127,23 @@ rm -r *.deb
 rm -r *.rpm 
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 fi
+
 wget https://sourceforge.net/projects/lemp-info/files/lempPHP7-3-12.tar.gz -P /home/lemp/ 
 tar -xvzf  /home/lemp/lempPHP7-3-12.tar.gz -C /home/lemp
 rm -r /home/lemp/lempPHP7-3-12.tar.gz
 sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
 
+if [ $MariaDB = "y" ];then
 wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
 sudo mv  /home/lemp/mariadb-10.5.0-linux-systemd-x86_64 /home/lemp/mysql
 rm -r /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
 rm -r /home/lemp/mysql/support-files/mysql.server
 mv /home/lemp/mysql.server /home/lemp/mysql/support-files/
+fi
 
-
-if [ "$osrelease" = "16.04" ] || [ "$osrelease" = "14.04" ]; then
+if [[ $openssl != *"1.1.1"* ]]; then
 #wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz  -P /home/lemp/ 
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
 cd /home/lemp/openssl-1.1.1c/
@@ -142,6 +160,14 @@ fi
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
 rm -r /home/lemp/*.deb
 
+if [ $MariaDB = "y" ];then
+wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
+sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
+sudo mv  /home/lemp/mariadb-10.5.0-linux-systemd-x86_64 /home/lemp/mysql
+rm -r /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
+rm -r /home/lemp/mysql/support-files/mysql.server
+mv /home/lemp/mysql.server /home/lemp/mysql/support-files/
+sleep 1
 export PATH=/home/lemp/mysql/bin:$PATH
 sleep 1
 chown -R mysql.mysql /home/lemp/mysql
@@ -154,7 +180,9 @@ echo -e " \n "
 sleep 1
 ln -s /home/lemp/mysql/bin/* /usr/local/bin/
 sleep 1
+fi
 sudo /etc/init.d/lemp start
+if [ $MariaDB = "y" ];then
 if [ "$osrelease" = "16.04" ] ; then
 /home/lemp/mysql/support-files/mysql.server start
 fi
@@ -162,8 +190,8 @@ sleep 1
 sudo /home/lemp/mysql/bin/mysqladmin -u root password "$SQL"
 sleep 1
 mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"  
-sleep 1
 mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
+fi
 
 if [ -f "$file" ]
 then
@@ -196,5 +224,3 @@ read -p "$(tput setaf 1)Reboot now (y/n)?$(tput sgr0) " CONT
 if [ "$CONT" == "y" ] || [ "$CONT" == "Y" ]; then
 reboot
 fi
-
-exit 3 
