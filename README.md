@@ -6,7 +6,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     To host projects on a Linux server system. 
     Our goal is to teach programming and web hosting    
 
-## Ubuntu NGINX MySQL PHP & ProFTPD + phpMyAdmin
+## Ubuntu NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
     PHP        Version 7.3.12
     MariaDB    Version 10.5.0 
@@ -38,7 +38,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      username: lemp
      password: lemp password
      
-## set MySQL root password 
+## Set MariaDB root password 
      mysql -u root
      
      use mysql;
