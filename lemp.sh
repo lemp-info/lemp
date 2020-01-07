@@ -191,6 +191,11 @@ if [[ $osrelease  = "7."* ]] ; then
 yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-5.9.5-3.el7.x86_64.rpm -y
 yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
 fi
+if [[ $osrelease  = "7."* ]] ; then 
+yum install http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/oniguruma-6.8.2-1.el8.x86_64.rpm -y
+fi
+
+
 
 wget https://sourceforge.net/projects/lemp-info/files/lempCentOS.tar.gz -P /home/lemp/ 
 tar -xvzf  /home/lemp/lempCentOS.tar.gz -C /home/lemp
