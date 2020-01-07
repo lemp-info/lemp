@@ -1,4 +1,4 @@
-# lempPHP7.3.12
+# lemp 
 ## What’s a LEMP stack?
 LEMP is a variation of the ubiquitous LAMP stack used for developing and deploying web applications. Traditionally, LAMP consists of Linux, Apache, MySQL, and PHP. Due to its modular nature, the components can easily be swapped out. With LEMP, Apache is replaced with the lightweight yet powerful Nginx.
 ## lemp.info
@@ -12,6 +12,14 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     MariaDB    Version 10.5.0 
     ProFTPD    Version 1.3.5
     phpmyadmin Version 4.9.3
+    
+## CentOS NGINX MariaDB PHP & ProFTPD + phpMyAdmin
+    nginx      Version 1.17.7
+    PHP        Version 7.4.1
+    MariaDB    Version 10.5.0 
+    ProFTPD    Version 1.3.5
+    phpmyadmin Version 4.9.3
+    
 ## install:
      wget https://raw.githubusercontent.com/lemp-info/lempPHP7.3.12/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
      
