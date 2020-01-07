@@ -21,7 +21,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     phpmyadmin Version 4.9.3
     
 ## install:
-     wget https://raw.githubusercontent.com/lemp-info/lempPHP7.3.12/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
+     wget https://raw.githubusercontent.com/lemp-info/lempNew/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
      
 ## Path
      Lemp:           /home/lemp
