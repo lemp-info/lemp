@@ -13,7 +13,7 @@ echo -e "${yellow} ?               www.lemp.info                  ? \e[0m"
 echo -e "${yellow} ?              Lemp installer                  ? \e[0m"
 echo -e "${yellow} ???????????????????????????????????????????????? \e[0m"
 echo " " 
-sleep 10
+sleep 1
 
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
@@ -21,15 +21,17 @@ echo -e "${jeshile} ?               Update System                  ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 sudo apt update
-sudo apt install -y --force-yes lsb-core 
+sudo apt install -y lsb-core 
+
+yum -y update
+yum install redhat-lsb-core -y
 
 osname=$(lsb_release -si)
 osrelease=$(lsb_release -sr)
-oscodename=$(lsb_release -sc) 
-osDisc=$(lsb_release -sd)
 arch=$(uname -m)
 openssl=$(openssl version)
 file=/etc/rc.local
+file2=$(cat /etc/rc.local | grep -c "/etc/rc.d/rc0.d/lemp start")
 
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
@@ -37,10 +39,19 @@ echo -e "${jeshile} ?            Checking System Version           ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 
-if [ "$osname" == "Ubuntu"  ] && [ "$arch" == "x86_64"  ]; then
+if [ "$osname" == "Ubuntu"  ] || [ "$osname" == "CentOS"  ]; then
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?             Support System                   ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
+else
+echo -e "${red} ???????????????????????????????????????????????? \e[0m"
+echo -e "${red} ?[+]        The system is not supported        ? \e[0m"
+echo -e "${red} ???????????????????????????????????????????????? \e[0m"
+exit 3  
+fi 
+
+if [ "$arch" = "x86_64" ] ; then
+echo " "
 else
 echo -e "${red} ???????????????????????????????????????????????? \e[0m"
 echo -e "${red} ?[+]        The system is not supported        ? \e[0m"
@@ -72,10 +83,14 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
-apt-get -y update
+
 groupadd mysql
 useradd -r -g mysql mysql
 /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
+
+if [ "$osname" == "Ubuntu"  ] ; then 
+
+apt-get -y update
 apt-get remove -y apache2 
 apt-get install -y --force-yes lsb-release nscd curl 
 apt-get install -y --force-yes libxslt1-dev  
@@ -128,13 +143,6 @@ rm -r *.rpm
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 fi
 
-wget https://sourceforge.net/projects/lemp-info/files/lempPHP7-3-12.tar.gz -P /home/lemp/ 
-tar -xvzf  /home/lemp/lempPHP7-3-12.tar.gz -C /home/lemp
-rm -r /home/lemp/lempPHP7-3-12.tar.gz
-sudo chmod -R 755 /home/lemp/script/*
-mv /home/lemp/script/* /etc/init.d/
-
-
 if [[ $openssl != *"1.1.1"* ]]; then
 #wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz  -P /home/lemp/ 
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
@@ -149,20 +157,70 @@ rm -r /home/lemp/openssl-1.1.1c.tar.gz
 rm -r /home/lemp/openssl-1.1.1c
 fi
 
+wget https://sourceforge.net/projects/lemp-info/files/lempPHP7-3-12.tar.gz -P /home/lemp/ 
+tar -xvzf  /home/lemp/lempPHP7-3-12.tar.gz -C /home/lemp
+rm -r /home/lemp/lempPHP7-3-12.tar.gz
+mv /home/lemp/mysql.server /home/lemp/script/
+sudo chmod -R 755 /home/lemp/script/*
+mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
 rm -r /home/lemp/*.deb
+fi
+
+if [ "$osname" == "CentOS" ]; then
+yum remove  -y httpd
+yum install -y wget
+yum install -y perl perl-devel gcc gcc-c+
+yum install -y libxml2-devel
+yum install -y bzip2-devel
+yum install -y curl-devel
+yum install -y libjpeg-devel
+yum install -y libpng-devel 
+yum install -y freetype-devel
+yum install -y libxslt-devel
+yum install -y libzip-devel
+yum install -y systemd-devel 
+yum install -y libaio-devel.x86_64
+yum install -y  libncurses*
+if [[ $osrelease  = "7."* ]] ; then 
+yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-5.9.5-3.el7.x86_64.rpm -y
+yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
+fi
+
+wget https://sourceforge.net/projects/lemp-info/files/lempCentOS.tar.gz -P /home/lemp/ 
+tar -xvzf  /home/lemp/lempCentOS.tar.gz -C /home/lemp
+rm -rf /home/lemp/lempCentOS.tar.gz
+if [ $MariaDB != "y" ];then
+rm -rf /home/lemp/script/mysql.server
+fi
+sudo chmod -R 755 /home/lemp/script/*
+cp /home/lemp/script/mysql.server /etc/rc.d/init.d/
+mv /home/lemp/script/* /etc/rc.d/rc0.d/  
+
+if [[ $osrelease  = "8."* ]] ; then 
+rm -rf /home/lemp/php
+wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP741.gz -P /home/lemp/ 
+tar -xvzf /home/lemp/lempCentOS8PHP741.tar.gz -C /home/lemp/
+rm -rf /home/lemp/lempCentOS8PHP741.tar.gz
+fi
+
+fi
 
 if [ $MariaDB = "y" ];then
 wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
 sudo mv  /home/lemp/mariadb-10.5.0-linux-systemd-x86_64 /home/lemp/mysql
-rm -r /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
-rm -r /home/lemp/mysql/support-files/mysql.server
-mv /home/lemp/mysql.server /home/lemp/mysql/support-files/
+rm -rf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
+rm -rf /home/lemp/mysql/support-files/mysql.server
+sudo chmod -R 755 /etc/init.d/mysql.server
+cp /etc/init.d/mysql.server /home/lemp/mysql/support-files/
+sudo chmod -R 755 /home/lemp
+sudo chmod -R 755 /home/lemp/mysql
 sleep 1
 export PATH=/home/lemp/mysql/bin:$PATH
 sleep 1
 chown -R mysql.mysql /home/lemp/mysql
+rm -rf /home/lemp/mysql/data
 sleep 1
 sudo /home/lemp/mysql/scripts/mysql_install_db --user=mysql --basedir=/home/lemp/mysql/ --datadir=/home/lemp/mysql/data
 echo -e " \n "
@@ -172,18 +230,24 @@ echo -e " \n "
 sleep 1
 ln -s /home/lemp/mysql/bin/* /usr/local/bin/
 sleep 1
-fi
-sudo /etc/init.d/lemp start
-if [ $MariaDB = "y" ];then
-if [ "$osrelease" = "16.04" ] ; then
+mv /etc/my.cnf /etc/my.cnf-old
+sleep 1
+sudo chmod -R 755 /home/lemp/mysql/support-files/mysql.server
+sleep 1
 /home/lemp/mysql/support-files/mysql.server start
-fi
 sleep 1
 sudo /home/lemp/mysql/bin/mysqladmin -u root password "$SQL"
 sleep 1
 mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"  
 mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
+
 fi
+
+sudo chmod 775 /home/lemp/phpmyadmin/tmp
+sudo chmod 777 /home/lemp/phpmyadmin/tmp
+
+if [ "$osname" == "Ubuntu" ]; then
+ 
 
 if [ -f "$file" ]
 then
@@ -212,6 +276,19 @@ chmod +x /etc/rc.local
 fi
 rm -r /home/lemp/openssl-1.1.1c > /dev/null 2>&1
 rm -r /home/lemp/openssl-1.1.1c.tar.gz > /dev/null 2>&1
+sudo /etc/init.d/lemp start
+fi
+
+if [ "$osname" == "CentOS" ]; then
+if [ $file2 -eq 1 ]; then
+echo " "   
+else
+echo "/etc/rc.d/rc0.d/lemp start" >> /etc/rc.local
+fi
+chmod +x /etc/rc.local
+sudo /etc/rc.d/rc0.d/lemp start
+fi
+
 read -p "$(tput setaf 1)Reboot now (y/n)?$(tput sgr0) " CONT
 if [ "$CONT" == "y" ] || [ "$CONT" == "Y" ]; then
 reboot
