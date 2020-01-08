@@ -11,14 +11,14 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     PHP        Version 7.3.12
     MariaDB    Version 10.5.0 
     ProFTPD    Version 1.3.5
-    phpmyadmin Version 4.9.3
+    phpmyadmin Version 4.9.4
     
 ## CentOS NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
     PHP        Version 7.4.1
     MariaDB    Version 10.5.0 
     ProFTPD    Version 1.3.5
-    phpmyadmin Version 4.9.3
+    phpmyadmin Version 4.9.4
     
 ## install:
      wget https://raw.githubusercontent.com/lemp-info/lempNew/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
@@ -28,12 +28,20 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      www:            /home/lemp/www 
      MariaDB my.cnf: /home/lemp/mysql/my.cnf
      
- ## Usage: 
-     sudo /etc/init.d/lemp {start|stop|restart|status}
-     sudo /etc/init.d/nginx   {start|stop|restart|status}
-     sudo /etc/init.d/php     {start|stop|restart|status}
-     sudo /etc/init.d/mysql   {start|stop|restart|status}
-     sudo /etc/init.d/proftpd {start|stop|restart|status}
+ ## Ubuntu Usage : 
+     sudo /etc/init.d/lemp           {start|stop|restart|status}
+     sudo /etc/init.d/nginx          {start|stop|restart|status}
+     sudo /etc/init.d/php            {start|stop|restart|status}
+     sudo /etc/init.d/mysql.server   {start|stop|restart|status}
+     sudo /etc/init.d/proftpd        {start|stop|restart|status}
+     
+ ## CentOS Usage : 
+     sudo /etc/rc0.d/lemp           {start|stop|restart|status}
+     sudo /etc/rc0.d/nginx          {start|stop|restart|status}
+     sudo /etc/rc0.d/php            {start|stop|restart|status}
+     sudo /etc/init.d/mysql.server  {start|stop|restart|status}
+     sudo /etc/rc0.d/proftpd        {start|stop|restart|status}
+     
      
 ## phpMyAdmin
      http://ipaddress/phpmyadmin
