@@ -94,7 +94,6 @@ useradd -r -g mysql mysql
 /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 
 if [ "$osname" == "Ubuntu"  ] ; then 
-
 apt-get -y update
 apt-get remove -y apache2 
 apt-get install -y --force-yes lsb-release nscd curl 
@@ -173,7 +172,6 @@ rm -r /home/lemp/*.deb
 fi
 
 if [ "$osname" == "CentOS" ]; then
-
 yum remove  -y httpd
 yum istall  -y wget
 yum install -y libxml2 libxml2-devel 
