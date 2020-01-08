@@ -173,20 +173,23 @@ rm -r /home/lemp/*.deb
 fi
 
 if [ "$osname" == "CentOS" ]; then
+
 yum remove  -y httpd
-yum install -y wget
-yum install -y perl perl-devel gcc gcc-c+
-yum install -y libxml2-devel
-yum install -y bzip2-devel
-yum install -y curl-devel
-yum install -y libjpeg-devel
-yum install -y libpng-devel 
-yum install -y freetype-devel
-yum install -y libxslt-devel
-yum install -y libzip-devel
-yum install -y systemd-devel 
-yum install -y libaio-devel.x86_64
-yum install -y  libncurses*
+yum istall  -y wget
+yum install -y libxml2 libxml2-devel 
+yum install -y openssl openssl-devel
+yum install -y bzip2 bzip2-devel 
+yum install -y libcurl libcurl-devel
+yum install -y libjpeg libjpeg-devel
+yum install -y libpng libpng-devel
+yum install -y freetype freetype-devel
+yum install -y gmp gmp-devel 
+yum install -y libmcrypt ibmcrypt-devel 
+yum install -y readline readline-devel 
+yum install -y libxslt libxslt-devel 
+yum install -y libaio-devel.x86_64 
+yum install -y libncurses* 
+yum install -y sqlite-devel.x86_64 
 if [[ $osrelease  = "7."* ]] ; then 
 yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-5.9.5-3.el7.x86_64.rpm -y
 yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
