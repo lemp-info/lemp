@@ -216,6 +216,19 @@ rm -rf /home/lemp/lempCentOS8PHP741.gz
 fi
 fi
 
+mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
+mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
+rm -rf /home/lemp/phpmyadmin
+wget https://files.phpmyadmin.net/phpMyAdmin/4.9.4/phpMyAdmin-4.9.4-all-languages.tar.gz  -P /home/lemp/ 
+sudo chmod -R 755 /home/lemp/phpMyAdmin-4.9.4-all-languages.tar.gz
+tar -xvzf /home/lemp/phpMyAdmin-4.9.4-all-languages.tar.gz -C /home/lemp/
+rm -rf /home/lemp/phpMyAdmin-4.9.4-all-languages.tar.gz
+mv /home/lemp/phpMyAdmin-4.9.4-all-languages /home/lemp/phpmyadmin
+mv /home/lemp/phpmyadmin.sql /home/lemp/phpmyadmin/
+mv /home/lemp/config.inc.php /home/lemp/phpmyadmin/
+mkdir /home/lemp/phpmyadmin/tmp
+sudo chmod 777 /home/lemp/phpmyadmin/tmp
+
 if [ $MariaDB = "y" ];then
 wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
@@ -251,9 +264,6 @@ sleep 1
 mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"  
 mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
 fi
-
-sudo chmod 775 /home/lemp/phpmyadmin/tmp
-sudo chmod 777 /home/lemp/phpmyadmin/tmp
 
 if [ "$osname" == "Ubuntu" ]; then
 if [ -f "$file" ]
