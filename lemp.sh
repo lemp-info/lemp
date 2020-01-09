@@ -227,7 +227,6 @@ mv /home/lemp/phpMyAdmin-4.9.4-all-languages /home/lemp/phpmyadmin
 mv /home/lemp/phpmyadmin.sql /home/lemp/phpmyadmin/
 mv /home/lemp/config.inc.php /home/lemp/phpmyadmin/
 mkdir /home/lemp/phpmyadmin/tmp
-sudo chmod 777 /home/lemp/phpmyadmin/tmp
 
 if [ $MariaDB = "y" ];then
 wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
@@ -305,6 +304,9 @@ fi
 chmod +x /etc/rc.local
 sudo /etc/rc.d/rc0.d/lemp start
 fi
+
+sudo chmod 755 /home/lemp/phpmyadmin/tmp
+sudo chmod 777 /home/lemp/phpmyadmin/tmp 
 
 read -p "$(tput setaf 1)Reboot now (y/n)?$(tput sgr0) " CONT
 if [ "$CONT" == "y" ] || [ "$CONT" == "Y" ]; then
