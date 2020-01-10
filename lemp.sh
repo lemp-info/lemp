@@ -189,6 +189,7 @@ yum install -y libaio-devel.x86_64
 yum install -y libncurses* 
 yum install -y sqlite-devel.x86_64 
 yum install -y systemd-devel 
+#yum install -y iptables-services
 if [[ $osrelease  = "7."* ]] ; then 
 yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-5.9.5-3.el7.x86_64.rpm -y
 yum install https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/o/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
