@@ -127,11 +127,11 @@ sleep 1
 sudo apt-get install -y --force-yes sysstat  
 fi
 
-if [ "$osrelease" == "14.04" ] ; then
-apt-get remove -y openssl 
-sleep 1
-apt-get install -y --force-yes openssl
-fi
+#if [ "$osrelease" == "14.04" ] ; then
+#apt-get remove -y openssl 
+#sleep 1
+#apt-get install -y --force-yes openssl
+#fi
 
 if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ]; then
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
@@ -153,6 +153,16 @@ rm -r *.rpm
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 fi
 
+wget https://sourceforge.net/projects/lemp-info/files/lempPHP7-3-12.tar.gz -P /home/lemp/ 
+tar -xvzf  /home/lemp/lempPHP7-3-12.tar.gz -C /home/lemp
+rm -r /home/lemp/lempPHP7-3-12.tar.gz
+mv /home/lemp/mysql.server /home/lemp/script/
+sudo chmod -R 755 /home/lemp/script/*
+mv /home/lemp/script/* /etc/init.d/
+sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
+rm -r /home/lemp/*.deb
+fi
+
 if [[ $openssl != *"1.1.1"* ]]; then
 #wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz  -P /home/lemp/ 
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
@@ -167,15 +177,6 @@ rm -r /home/lemp/openssl-1.1.1c.tar.gz
 rm -r /home/lemp/openssl-1.1.1c
 fi
 
-wget https://sourceforge.net/projects/lemp-info/files/lempPHP7-3-12.tar.gz -P /home/lemp/ 
-tar -xvzf  /home/lemp/lempPHP7-3-12.tar.gz -C /home/lemp
-rm -r /home/lemp/lempPHP7-3-12.tar.gz
-mv /home/lemp/mysql.server /home/lemp/script/
-sudo chmod -R 755 /home/lemp/script/*
-mv /home/lemp/script/* /etc/init.d/
-sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
-rm -r /home/lemp/*.deb
-fi
 
 if [ "$osname" == "CentOS" ]; then
 yum remove  -y httpd
