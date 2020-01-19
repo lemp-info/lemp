@@ -127,7 +127,7 @@ sleep 1
 sudo apt-get install -y --force-yes sysstat  
 fi
 
-if [ "$osrelease" = "14.04" ] ; then
+if [ "$osrelease" = "14."* ] ; then
 apt-get remove -y openssl 
 apt-get install -y --force-yes openssl
 fi
