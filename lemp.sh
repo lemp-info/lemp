@@ -127,6 +127,11 @@ sleep 1
 sudo apt-get install -y --force-yes sysstat  
 fi
 
+if [ "$osrelease" = "14.04" ] ; then
+apt-get remove -y openssl 
+apt-get install -y --force-yes openssl
+fi
+
 if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ]; then
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sudo apt-get install -y --force-yes sysstat 
