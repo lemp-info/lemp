@@ -153,13 +153,19 @@ rm -r *.rpm
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 fi
 
-wget https://sourceforge.net/projects/lemp-info/files/lempPHP7-3-12.tar.gz -P /home/lemp/ 
-tar -xvzf  /home/lemp/lempPHP7-3-12.tar.gz -C /home/lemp
-rm -r /home/lemp/lempPHP7-3-12.tar.gz
-mv /home/lemp/mysql.server /home/lemp/script/
-if [ $MariaDB != "y" ];then
-rm -rf /home/lemp/script/mysql.server
+wget https://sourceforge.net/projects/lemp-info/files/lempNEW.tar.gz -P /home/lemp/ 
+tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
+rm -r /home/lemp/lempNEW.tar.gz
+
+if [ $MariaDB != "y" ]; then
+rm -rf /home/lemp/script/lemp
+mv /home/lempNEWS/script/lemp2 /home/lempNEWS/script/lemp
+rm -r /home/lempNEWS/script/mysql.server
+rm -r /home/lempNEWS/script/my.cnf
+else
+rm -rf /home/lemp/script/lemp2
 fi
+
 sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
@@ -179,7 +185,6 @@ ln -s /usr/local/bin/openssl /usr/bin/openssl
 rm -r /home/lemp/openssl-1.1.1c.tar.gz
 rm -r /home/lemp/openssl-1.1.1c
 fi
-
 
 if [ "$osname" == "CentOS" ]; then
 yum remove  -y httpd
