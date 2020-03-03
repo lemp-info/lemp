@@ -1,5 +1,4 @@
 #!/bin/bash
-
 jeshile='\e[40;38;5;82m' 
 jo='\e[0m'  
 red='\e[31m'
