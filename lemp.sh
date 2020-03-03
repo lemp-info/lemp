@@ -159,9 +159,9 @@ rm -r /home/lemp/lempNEW.tar.gz
 
 if [ $MariaDB != "y" ]; then
 rm -rf /home/lemp/script/lemp
-mv /home/lempNEWS/script/lemp2 /home/lempNEWS/script/lemp
-rm -r /home/lempNEWS/script/mysql.server
-rm -r /home/lempNEWS/script/my.cnf
+mv /home/lemp/script/lemp2 /home/lemp/script/lemp
+rm -r /home/lemp/script/mysql.server
+rm -r /home/lemp/script/my.cnf
 else
 rm -rf /home/lemp/script/lemp2
 fi
