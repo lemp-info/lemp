@@ -61,9 +61,9 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      delete from user where User='root';
      DELETE FROM mysql.user WHERE User='';
      flush privileges;
-     grant all privileges on *.* to 'root'@'localhost' identified by 'yourpassword' with grant option;
-     grant all privileges on *.* to 'root'@'127.0.0.1' identified by 'yourpassword' with grant option;
-     grant all privileges on *.* to 'root'@'::1' identified by 'yourpassword' with grant option;
+     grant all privileges on *.* to 'root'@'localhost' identified by 'NewPassword' with grant option;
+     grant all privileges on *.* to 'root'@'127.0.0.1' identified by 'NewPassword' with grant option;
+     grant all privileges on *.* to 'root'@'::1' identified by 'NewPassword' with grant option;
      flush privileges;
      \q
      
