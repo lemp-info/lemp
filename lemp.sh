@@ -157,6 +157,9 @@ wget https://sourceforge.net/projects/lemp-info/files/lempPHP7-3-12.tar.gz -P /h
 tar -xvzf  /home/lemp/lempPHP7-3-12.tar.gz -C /home/lemp
 rm -r /home/lemp/lempPHP7-3-12.tar.gz
 mv /home/lemp/mysql.server /home/lemp/script/
+if [ $MariaDB != "y" ];then
+rm -rf /home/lemp/script/mysql.server
+fi
 sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
