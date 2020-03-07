@@ -323,7 +323,26 @@ fi
 sudo chmod 755 /home/lemp/phpmyadmin/tmp
 sudo chmod 777 /home/lemp/phpmyadmin/tmp 
 
+if [ $MariaDB != "y" ]; then
+if [ -f /etc/init.d/mysql* ]; then
+read -p "Do you want to install database phpmyadmin ? [y/n]: " phpmyadmin
+if [ $phpmyadmin = "y" ];then
+while true; do
+ echo 
+read -p "Please enter a password for your MySQL : " mysqlpassword
+ echo 
+RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
+[ "$RESULT" = "mysql" ] && break
+echo -e "${red}Please try again${NC}"
+done
+fi 
+mysql -uroot -p"$mysqlpassword" -e "CREATE DATABASE phpmyadmin"  
+mysql -uroot -p"$mysqlpassword" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
+fi
+fi
+
 read -p "$(tput setaf 1)Reboot now (y/n)?$(tput sgr0) " CONT
 if [ "$CONT" == "y" ] || [ "$CONT" == "Y" ]; then
 reboot
 fi
+exit 1
