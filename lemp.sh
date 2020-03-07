@@ -329,7 +329,7 @@ read -p "Do you want to install database phpmyadmin ? [y/n]: " phpmyadmin
 if [ $phpmyadmin = "y" ];then
 while true; do
  echo 
-read -p "Please enter a password for your MySQL : " mysqlpassword
+read -s -p "Please enter a password for your MySQL : " mysqlpassword
  echo 
 RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
 [ "$RESULT" = "mysql" ] && break
