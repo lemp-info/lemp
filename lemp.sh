@@ -80,6 +80,8 @@ while true; do
     [ "$SQL" = "$SQL2" ] && break
 echo -e "${red}Please try again${NC}"
 done
+groupadd mysql
+useradd -r -g mysql mysql
 fi
 			
 echo " "
@@ -88,8 +90,6 @@ echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 
-groupadd mysql
-useradd -r -g mysql mysql
 /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 
 if [ "$osname" == "Ubuntu"  ] ; then 
