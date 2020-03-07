@@ -324,7 +324,7 @@ sudo chmod 755 /home/lemp/phpmyadmin/tmp
 sudo chmod 777 /home/lemp/phpmyadmin/tmp 
 
 if [ $MariaDB != "y" ]; then
-if [ -f /etc/init.d/mysql* ]; then
+if [ -f /etc/init.d/mysql* ] || [ -d "/var/log/mysql" ] ; then
 read -p "Do you want to install database phpmyadmin ? [y/n]: " phpmyadmin
 if [ $phpmyadmin = "y" ];then
 while true; do
