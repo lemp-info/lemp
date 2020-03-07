@@ -322,6 +322,7 @@ fi
 
 sudo chmod 755 /home/lemp/phpmyadmin/tmp
 sudo chmod 777 /home/lemp/phpmyadmin/tmp 
+sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
 
 if [ $MariaDB != "y" ]; then
 if [ -f /etc/init.d/mysql* ] || [ -d "/var/log/mysql" ] ; then
