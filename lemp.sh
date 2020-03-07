@@ -335,9 +335,9 @@ RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard
 [ "$RESULT" = "mysql" ] && break
 echo -e "${red}Please try again${NC}"
 done
-fi 
 mysql -uroot -p"$mysqlpassword" -e "CREATE DATABASE phpmyadmin"  
 mysql -uroot -p"$mysqlpassword" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
+fi 
 fi
 fi
 
