@@ -136,7 +136,7 @@ sleep 1
 if [ "$osrelease" == "19.04" ] ; then 
 sudo apt-get install -y --force-yes libncurses5
 sudo apt-get remove -y libcurl4  
-wget ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/releases/29/Everything/x86_64/os/Packages/l/libpng12-1.2.57-8.fc29.x86_64.rpm -P /root    
+wget https://github.com/lemp-info/lempNew/raw/master/libpng12-1.2.57-8.fc29.x86_64.rpm -P /root    
 wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb -P /root  
 wget http://archive.ubuntu.com/ubuntu/pool/universe/c/curl3/libcurl3_7.58.0-2ubuntu2_amd64.deb -P /root  
 sudo alien -cv *.rpm
