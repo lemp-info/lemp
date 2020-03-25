@@ -228,7 +228,7 @@ fi
 mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
 mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
 rm -rf /home/lemp/phpmyadmin
-wget https://files.phpmyadmin.net/phpMyAdmin/4.9.4/phpMyAdmin-4.9.4-all-languages.tar.gz  -P /home/lemp/ 
+wget https://github.com/lemp-info/lempNew/raw/master/phpMyAdmin-4.9.4-all-languages.tar.gz -P /home/lemp/ 
 sudo chmod -R 755 /home/lemp/phpMyAdmin-4.9.4-all-languages.tar.gz
 tar -xvzf /home/lemp/phpMyAdmin-4.9.4-all-languages.tar.gz -C /home/lemp/
 rm -rf /home/lemp/phpMyAdmin-4.9.4-all-languages.tar.gz
