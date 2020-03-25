@@ -23,6 +23,10 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
 ## install:
      wget https://raw.githubusercontent.com/lemp-info/lempNew/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
      
+## Import database phpmyadmin (manually)
+
+     mysql -uroot -p -e "CREATE DATABASE phpmyadmin"  
+     mysql -uroot -p phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
 ## Path
      Lemp:           /home/lemp
      www:            /home/lemp/www 
