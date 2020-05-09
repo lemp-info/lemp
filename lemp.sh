@@ -215,6 +215,22 @@ yum -y install git libssh2-devel gcc-c++
 if [[ $osrelease  = "7."* ]] ; then 
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-5.9.5-3.el7.x86_64.rpm -y
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
+cd /root
+yum remove -y libzip
+wget https://nih.at/libzip/libzip-1.2.0.tar.gz
+tar -zxvf libzip-1.2.0.tar.gz
+cd libzip-1.2.0
+./configure
+sleep 1
+make && make install
+sleep 2
+echo '/usr/local/lib64
+/usr/local/lib
+/usr/lib
+/usr/lib64'>>/etc/ld.so.conf
+rm -r -f /root/ibzip-1.2.0.tar.gz
+rm -r -f /root/ibzip-1.2.0
+yum install -y libzip-devel
 fi
 if [[ $osrelease  = "8."* ]] ; then 
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
