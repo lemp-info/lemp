@@ -242,15 +242,7 @@ sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
 rm -rf /home/lemp/lempCentOS8PHP.tar.gz
 yum -y install autoconf
-cd /root
-### fix ssh2
-sudo yum -y install perl perl-devel gcc gcc-c++
-wget https://www.libssh2.org/download/libssh2-1.8.0.tar.gz 
-tar -zxvf libssh2-1.8.0.tar.gz
-cd libssh2-1.8.0
-./configure --prefix=/usr/local/libssh2
-make && make install
-
+yum install -y openssl-devel
 fi
 fi
 
