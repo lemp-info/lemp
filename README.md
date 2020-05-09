@@ -15,7 +15,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     
 ## CentOS NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
-    PHP        Version 7.4.1
+    PHP        Version 7.2.19
     MariaDB    Version 10.5.0 
     ProFTPD    Version 1.3.5
     phpmyadmin Version 4.9.4
