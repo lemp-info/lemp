@@ -209,6 +209,8 @@ yum -y install uw-imap-devel libc-client
 yum -y install postgresql-devel
 yum -y install libxslt.x86_64 libxslt-devel.x86_64
 yum -y install llibssh2-devel
+yum -y install autoconf
+yum -y install pcre-devel
 if [[ $osrelease  = "7."* ]] ; then 
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-5.9.5-3.el7.x86_64.rpm -y
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
@@ -241,7 +243,6 @@ wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP.tar.gz -P 
 sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
 rm -rf /home/lemp/lempCentOS8PHP.tar.gz
-yum -y install autoconf
 yum install -y openssl-devel
 fi
 fi
