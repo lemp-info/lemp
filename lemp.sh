@@ -212,6 +212,7 @@ yum -y install llibssh2-devel
 yum -y install autoconf
 yum -y install pcre-devel
 yum -y install git libssh2-devel gcc-c++
+yum install -y libzip-devel
 if [[ $osrelease  = "7."* ]] ; then 
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-5.9.5-3.el7.x86_64.rpm -y
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
