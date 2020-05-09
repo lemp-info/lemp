@@ -204,11 +204,24 @@ yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-devel-5.9.
 fi
 if [[ $osrelease  = "8."* ]] ; then 
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
+yum -y install libxml2 libxml2-devel
+yum -y install bzip2 bzip2-devel
+yum -y install curl-devel
+yum -y install libjpeg-turbo-devel
+yum -y install libpng-devel
+yum -y install freetype-devel
+yum -y install epel-release
+yum -y install uw-imap-devel libc-client
+yum -y install postgresql-devel
+yum -y install libxslt.x86_64 libxslt-devel.x86_64
+yum -y install llibssh2-devel
 fi
 
 wget https://sourceforge.net/projects/lemp-info/files/lempCentOS.tar.gz -P /home/lemp/ 
 tar -xvzf  /home/lemp/lempCentOS.tar.gz -C /home/lemp
 rm -rf /home/lemp/lempCentOS.tar.gz
+sudo chmod -R 755 /home/lemp/start-stop-daemon
+mv /home/lemp/start-stop-daemon /usr/sbin/
 if [ $MariaDB != "y" ];then
 rm -rf /home/lemp/script/mysql.server
 fi
@@ -218,10 +231,10 @@ mv /home/lemp/script/* /etc/rc.d/rc0.d/
 
 if [[ $osrelease  = "8."* ]] ; then 
 rm -rf /home/lemp/php
-wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP741.gz -P /home/lemp/ 
-sudo chmod -R 755 /home/lemp/lempCentOS8PHP741.tar.gz
-tar -xvzf /home/lemp/lempCentOS8PHP741.gz -C /home/lemp/
-rm -rf /home/lemp/lempCentOS8PHP741.gz
+wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP.gz -P /home/lemp/ 
+sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
+tar -xvzf /home/lemp/lempCentOS8PHP.gz -C /home/lemp/
+rm -rf /home/lemp/lempCentOS8PHP.gz
 fi
 fi
 
