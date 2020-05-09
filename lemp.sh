@@ -241,7 +241,7 @@ wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP.tar.gz -P 
 sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
 rm -rf /home/lemp/lempCentOS8PHP.tar.gz
-yum -y install llibssh2-devel 
+ yum -y install autoconf
 fi
 fi
 
