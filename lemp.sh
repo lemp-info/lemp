@@ -231,10 +231,10 @@ mv /home/lemp/script/* /etc/rc.d/rc0.d/
 
 if [[ $osrelease  = "8."* ]] ; then 
 rm -rf /home/lemp/php
-wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP.gz -P /home/lemp/ 
+wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP.tar.gz -P /home/lemp/ 
 sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
-tar -xvzf /home/lemp/lempCentOS8PHP.gz -C /home/lemp/
-rm -rf /home/lemp/lempCentOS8PHP.gz
+tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
+rm -rf /home/lemp/lempCentOS8PHP.tar.gz
 fi
 fi
 
