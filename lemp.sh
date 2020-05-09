@@ -211,6 +211,7 @@ yum -y install libxslt.x86_64 libxslt-devel.x86_64
 yum -y install llibssh2-devel
 yum -y install autoconf
 yum -y install pcre-devel
+yum -y install git libssh2-devel
 if [[ $osrelease  = "7."* ]] ; then 
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-5.9.5-3.el7.x86_64.rpm -y
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
