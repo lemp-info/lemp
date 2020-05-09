@@ -217,9 +217,9 @@ if [[ $osrelease  = "8."* ]] ; then
 yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
 fi
 
-wget https://sourceforge.net/projects/lemp-info/files/lempCentOS.tar.gz -P /home/lemp/ 
-tar -xvzf  /home/lemp/lempCentOS.tar.gz -C /home/lemp
-rm -rf /home/lemp/lempCentOS.tar.gz
+wget https://sourceforge.net/projects/lemp-info/files/lemp-CentOS.tar.gz -P /home/lemp/ 
+tar -xvzf  /home/lemp/lemp-CentOS.tar.gz -C /home/lemp
+rm -rf /home/lemp/lemp-CentOS.tar.gz
 sudo chmod -R 755 /home/lemp/start-stop-daemon
 mv /home/lemp/start-stop-daemon /usr/sbin/
 if [ $MariaDB != "y" ];then
@@ -227,10 +227,16 @@ rm -rf /home/lemp/script/mysql.server
 fi
 sudo chmod -R 755 /home/lemp/script/*
 cp /home/lemp/script/mysql.server /etc/rc.d/init.d/
-mv /home/lemp/script/* /etc/rc.d/rc0.d/  
+mv /home/lemp/script/* /etc/rc.d/rc0.d/
+
+if [[ $osrelease  = "7."* ]] ; then 
+wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS7PHP.tar.gz -P /home/lemp/ 
+sudo chmod -R 755 /home/lemp/lempCentOS7PHP.tar.gz
+tar -xvzf /home/lemp/lempCentOS7PHP.tar.gz -C /home/lemp/
+rm -rf /home/lemp/lempCentOS7PHP.tar.gz
+fi
 
 if [[ $osrelease  = "8."* ]] ; then 
-rm -rf /home/lemp/php
 wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP.tar.gz -P /home/lemp/ 
 sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
