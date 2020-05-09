@@ -23,6 +23,16 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
 ## install:
      wget https://raw.githubusercontent.com/lemp-info/lempNew/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
      
+     
+## update:
+       # 2020/05/9
+     1.Nginx Using a load balancing PHP 'Faster'
+     2.Nginx ssl config
+     3.extension ioncube 
+     4.extension ssh2 
+     5.extension snuffleupagus ( To run, you must exit the comment in the file php.ini ";extension=snuffleupagus.so")
+     7.Manual startup "/home/lemp/start.sh"
+     
 ## Import database phpmyadmin (manually)
 
      mysql -uroot -p -e "CREATE DATABASE phpmyadmin"  
