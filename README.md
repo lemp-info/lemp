@@ -15,7 +15,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     
 ## CentOS NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
-    PHP        Version 7.2.19
+    PHP        Version 7.3.19
     MariaDB    Version 10.5.0 
     ProFTPD    Version 1.3.5
     phpmyadmin Version 4.9.4
@@ -26,8 +26,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      
 ## update:
        # 2020/05/9
-     1.Nginx Using a load balancing PHP 'Faster'
-     2.Nginx ssl config
+     1.NGINX Internal Load Balancing PHP-FPM Upstream  'Faster'
+     2.NGINX ssl config
      3.extension ioncube 
      4.extension ssh2 
      5.extension snuffleupagus ( To run, you must exit the comment in the file php.ini ";extension=snuffleupagus.so")
