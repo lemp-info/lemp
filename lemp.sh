@@ -133,7 +133,7 @@ wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lempNew/raw/master/lib
 fi
 
 sleep 1
-if [ "$osrelease" == "19.04" ] ; then 
+if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" ] ; then 
 sudo apt-get install -y --force-yes libncurses5
 sudo apt-get remove -y libcurl4  
 wget https://github.com/lemp-info/lempNew/raw/master/libpng12-1.2.57-8.fc29.x86_64.rpm -P /root    
