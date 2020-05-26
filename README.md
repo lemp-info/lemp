@@ -24,6 +24,13 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      wget https://raw.githubusercontent.com/lemp-info/lempNew/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
      
      
+ ## addons   
+     Node.js:
+     
+     Turnserver:
+     
+     Ffmpeg:
+     
 ## update:
        # 2020/05/09
      1.NGINX Internal Load Balancing PHP-FPM Upstream  'Faster'
