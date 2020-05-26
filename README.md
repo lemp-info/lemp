@@ -29,10 +29,10 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
        wget https://sourceforge.net/projects/lemp-info/files/node.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/node.tar.gz -C /home/lemp && rm -r /home/lemp/node.tar.gz && sudo ln -s /home/lemp/node/bin/* /usr/local/bin/  
        
      Turnserver:
-       wget https://github.com/lemp-info/lempNew/raw/master/turnserver.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/turnserver.tar.gz -C /home/lemp  && rm -r /home/lemp/turnserver.tar.gz && sudo ln -s /home/lemp/turnserver/bin/* /usr/local/bin/ 
+       wget https://github.com/lemp-info/lempNew/raw/master/turnserver.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/turnserver.tar.gz -C /home/lemp  && rm -r /home/lemp/turnserver.tar.gz  &&  sudo ln -s /home/lemp/turnserver/bin/* /usr/local/bin/ 
        
      FFmpeg:
-         wget https://sourceforge.net/projects/lemp-info/files/FFmpeg.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/FFmpeg.tar.gz -C /home/lemp && rm -r /home/lemp/FFmpeg.tar.gz && sudo ln -s /home/lemp/FFmpeg/* /usr/local/bin/ 
+         wget https://sourceforge.net/projects/lemp-info/files/FFmpeg.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/FFmpeg.tar.gz -C /home/lemp && rm -r /home/lemp/FFmpeg.tar.gz && rm -r -f /usr/local/bin/turnadmin && rm -r -f  /usr/local/bin/turnserver && rm -r -f /usr/local/bin/turnutils_natdiscovery && rm -r -f /usr/local/bin/turnutils_oauth && rm -r -f  /usr/local/bin/turnutils_peer && rm -r -f  /usr/local/bin/turnutils_stunclient && rm -r -f  /usr/local/bin/turnutils_uclient && sudo ln -s /home/lemp/FFmpeg/* /usr/local/bin/ 
 
 ## update:
        # 2020/05/09
