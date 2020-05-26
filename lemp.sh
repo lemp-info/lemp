@@ -119,6 +119,7 @@ apt-get install -y --force-yes numactl
 apt-get install -y --force-yes install libaio
 apt-get install -y --force-yes libaio1 
 apt-get install -y --force-yes libaio-dev
+apt-get install -y --force-yes libevent-dev
 apt-get install -y --force-yes openssl
 if [ "$osrelease" == "16.04"  ] ; then 
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
