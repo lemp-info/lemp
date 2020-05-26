@@ -29,7 +29,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
        wget https://sourceforge.net/projects/lemp-info/files/node.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/node.tar.gz -C /home/lemp && rm -r /home/lemp/node.tar.gz && sudo ln -s /home/lemp/node/bin/* /usr/local/bin/  
        
      Turnserver:
-         cd &&  git clone https://github.com/coturn/coturn.git && cd coturn && ./configure --prefix=/home/lemp/turnserver && sudo make && sudo  make install && rm -r -f /usr/local/bin/turnadmin && rm -r -f  /usr/local/bin/turnserver && rm -r -f /usr/local/bin/turnutils_natdiscovery && rm -r -f /usr/local/bin/turnutils_oauth && rm -r -f  /usr/local/bin/turnutils_peer && rm -r -f  /usr/local/bin/turnutils_stunclient && rm -r -f  /usr/local/bin/turnutils_uclient && sudo ln -s /home/lemp/turnserver/bin/* /usr/local/bin/
+         cd && rm -r -f /root/coturn && git clone https://github.com/coturn/coturn.git && cd coturn && ./configure --prefix=/home/lemp/turnserver && sudo make && sudo  make install && rm -r -f /usr/local/bin/turnadmin && rm -r -f  /usr/local/bin/turnserver && rm -r -f /usr/local/bin/turnutils_natdiscovery && rm -r -f /usr/local/bin/turnutils_oauth && rm -r -f  /usr/local/bin/turnutils_peer && rm -r -f  /usr/local/bin/turnutils_stunclient && rm -r -f  /usr/local/bin/turnutils_uclient && sudo ln -s /home/lemp/turnserver/bin/* /usr/local/bin/ && rm -r -f /root/coturn
 
      FFmpeg:
          wget https://sourceforge.net/projects/lemp-info/files/FFmpeg.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/FFmpeg.tar.gz -C /home/lemp && rm -r /home/lemp/FFmpeg.tar.gz && sudo ln -s /home/lemp/FFmpeg/* /usr/local/bin/ 
