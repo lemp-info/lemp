@@ -26,11 +26,12 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      
  ## addons   
      Node.js:
-       wget https://sourceforge.net/projects/lemp-info/files/node.tar.gz -P /home/lemp/ & tar -xvzf  /home/lemp/node.tar.gz -C /home/lemp & sudo ln -s /home/lemp/node/bin/* /usr/local/bin/ & rm -r /home/lemp/node.tar.gz
+       wget https://sourceforge.net/projects/lemp-info/files/node.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/node.tar.gz -C /home/lemp && sudo ln -s /home/lemp/node/bin/* /usr/local/bin/ && rm -r /home/lemp/node.tar.gz
 
 
      Turnserver:
-       wget https://github.com/lemp-info/lempNew/raw/master/turnserver.tar.gz -P /home/lemp/ & tar -xvzf  /home/lemp/turnserver.tar.gz -C /home/lemp & sudo ln -s /home/lemp/turnserver/bin/* /usr/local/bin/  & rm -r /home/lemp/turnserver.tar.gz
+       wget https://github.com/lemp-info/lempNew/raw/master/turnserver.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/turnserver.tar.gz -C /home/lemp && sudo ln -s /home/lemp/turnserver/bin/* /usr/local/bin/  && rm -r /home/lemp/turnserver.tar.gz
+       
      Ffmpeg:
      
 ## update:
