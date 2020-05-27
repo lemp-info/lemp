@@ -35,7 +35,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
          wget https://sourceforge.net/projects/lemp-info/files/FFmpeg.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/FFmpeg.tar.gz -C /home/lemp && rm -r /home/lemp/FFmpeg.tar.gz && sudo ln -s /home/lemp/FFmpeg/* /usr/local/bin/ 
 
      Anti-DDoS:
-          wget https://github.com/lemp-info/lempNew/raw/master/ddos_deflate-0.7.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/ddos_deflate-0.7.tar.gz -C /home/lemp && rm -r  -f /home/lemp/ddos_deflate-0.7.tar.gz  &&  /home/lemp/ddos_deflate-0.7/install.sh
+          wget https://github.com/lemp-info/lempNew/raw/master/ddos_deflate-0.7.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/ddos_deflate-0.7.tar.gz -C /home/lemp && rm -r  -f /home/lemp/ddos_deflate-0.7.tar.gz  && cd /home/lemp/ddos_deflate-0.7 &&  ./install.sh 
+   
      
 ## update:
        # 2020/05/09
