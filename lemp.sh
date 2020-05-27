@@ -130,16 +130,16 @@ fi
 if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ]; then
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sudo apt-get install -y --force-yes sysstat 
-wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lempNew/raw/master/libpng12-0_1.2.54-1ubuntu1_amd64.deb && dpkg -i /tmp/libpng12.deb   && rm /tmp/libpng12.deb   
+wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lemp/raw/master/libpng12-0_1.2.54-1ubuntu1_amd64.deb && dpkg -i /tmp/libpng12.deb   && rm /tmp/libpng12.deb   
 fi
 
 sleep 1
 if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" ] ; then 
 sudo apt-get install -y --force-yes libncurses5
 sudo apt-get remove -y libcurl4  
-wget https://github.com/lemp-info/lempNew/raw/master/libpng12-1.2.57-8.fc29.x86_64.rpm -P /root    
-wget https://github.com/lemp-info/lempNew/raw/master/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb -P /root  
-wget https://github.com/lemp-info/lempNew/raw/master/libcurl3_7.58.0-2ubuntu2_amd64.deb -P /root  
+wget https://github.com/lemp-info/lemp/raw/master/libpng12-1.2.57-8.fc29.x86_64.rpm -P /root    
+wget https://github.com/lemp-info/lemp/raw/master/libssl1.0.0_1.0.2n-1ubuntu5_amd64.deb -P /root  
+wget https://github.com/lemp-info/lemp/raw/master/libcurl3_7.58.0-2ubuntu2_amd64.deb -P /root  
 sudo alien -cv *.rpm
 sudo dpkg -i *.deb
 rm -r *.deb 
@@ -215,8 +215,8 @@ yum -y install pcre-devel
 yum -y install git libssh2-devel gcc-c++
 yum install -y libzip-devel
 if [[ $osrelease  = "7."* ]] ; then 
-yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-5.9.5-3.el7.x86_64.rpm -y
-yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
+yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-5.9.5-3.el7.x86_64.rpm -y
+yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
 cd /root
 yum remove -y libzip
 wget https://nih.at/libzip/libzip-1.2.0.tar.gz
@@ -235,7 +235,7 @@ rm -r -f /root/ibzip-1.2.0
 yum install -y libzip-devel
 fi
 if [[ $osrelease  = "8."* ]] ; then 
-yum install https://github.com/lemp-info/lempNew/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
+yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
 fi
 
 wget https://sourceforge.net/projects/lemp-info/files/lemp-CentOS.tar.gz -P /home/lemp/ 
@@ -269,7 +269,7 @@ fi
 mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
 mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
 rm -rf /home/lemp/phpmyadmin
-wget https://github.com/lemp-info/lempNew/raw/master/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
+wget https://github.com/lemp-info/lemp/raw/master/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
 sudo chmod -R 755 /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
 tar -xvzf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz -C /home/lemp/
 rm -rf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
