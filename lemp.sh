@@ -120,7 +120,7 @@ apt-get install -y --force-yes install libaio
 apt-get install -y --force-yes libaio1 
 apt-get install -y --force-yes libaio-dev
 apt-get install -y --force-yes libevent-dev
-apt-get install -y --force-yes openssl
+apt-get install -y --force-yes openssl libssl-dev make
 if [ "$osrelease" == "16.04"  ] ; then 
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sleep 1
