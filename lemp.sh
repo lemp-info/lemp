@@ -164,7 +164,7 @@ sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
 rm -r /home/lemp/*.deb
-sudo ln -s /home/lemp/php/bin/* /usr/bin
+#sudo ln -s /home/lemp/php/bin/* /usr/bin
 fi
 
 if [[ $openssl != *"1.1.1"* ]]; then
