@@ -101,6 +101,7 @@ apt-get install -y --force-yes libpq-dev
 apt-get install -y --force-yes libmcrypt-dev 
 apt-get install -y --force-yes libltdl7 
 apt-get install -y --force-yes libssh2-1-dev 
+apt-get install -y --force-yes libssh2-1
 apt-get install -y --force-yes libgeoip-dev  
 apt-get install -y --force-yes libjpeg8 
 apt-get install -y --force-yes cron 
