@@ -244,7 +244,8 @@ if [[ $osrelease  = "8."* ]] ; then
 yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
 fi
 
-wget https://sourceforge.net/projects/lemp-info/files/lemp-CentOS.tar.gz -P /home/lemp/ 
+#wget https://sourceforge.net/projects/lemp-info/files/lemp-CentOS.tar.gz -P /home/lemp/ 
+wget https://raw.githubusercontent.com/lemp-info/lemp/master/script/lemp-CentOS.tar.gz  -P /home/lemp/ 
 tar -xvzf  /home/lemp/lemp-CentOS.tar.gz -C /home/lemp
 rm -rf /home/lemp/lemp-CentOS.tar.gz
 sudo chmod -R 755 /home/lemp/start-stop-daemon
