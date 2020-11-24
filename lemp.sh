@@ -274,7 +274,7 @@ fi
 mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
 mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
 rm -rf /home/lemp/phpmyadmin
-wget https://github.com/lemp-info/lemp/raw/master/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
+wget https://github.com/lemp-info/lemp/raw/master/phpmyadmin/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
 sudo chmod -R 755 /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
 tar -xvzf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz -C /home/lemp/
 rm -rf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
