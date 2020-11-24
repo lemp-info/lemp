@@ -380,7 +380,6 @@ mysqlpassword=$(whiptail --title "MariaDB Password" --passwordbox "Please enter 
  echo 
 RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
 [ "$RESULT" = "mysql" ] && break
-echo -e "${red}Please try again${NC}"
 done
 mysql -uroot -p"$mysqlpassword" -e "CREATE DATABASE phpmyadmin"  
 mysql -uroot -p"$mysqlpassword" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
