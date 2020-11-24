@@ -7,22 +7,20 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 echo " "
-echo -e "${yellow} ???????????????????????????????????????????????? \e[0m"
-echo -e "${yellow} ?               www.lemp.info                  ? \e[0m"
-echo -e "${yellow} ?              Lemp installer                  ? \e[0m"
-echo -e "${yellow} ???????????????????????????????????????????????? \e[0m"
-echo " " 
-sleep 5
+whiptail --title "Lemp installer" --msgbox "                               www.lemp.info " 8 78
+sleep 2
 
-echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?               Update System                  ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 sudo apt update
 sudo apt install -y lsb-core 
+sudo apt install dialog 
+sudo apt-get install whiptail
 
 yum -y update
+yum -y dialog
 yum install redhat-lsb-core -y
 
 osname=$(lsb_release -si)
@@ -69,21 +67,26 @@ echo -e "${jeshile} ?         NEW password for your MySQL          ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 
-read -p "Do you want to install MariaDB ? [y/n]: " MariaDB
-if [ $MariaDB = "y" ];then
+if [ ! -f /etc/init.d/mysql* ] || [ ! -d "/var/log/mysql" ] ; then
+if (whiptail --title "MariaDB" --yesno "Do you want to install MariaDB ?" 8 78); then   
+MariaDB="y"	 
 while true; do
     echo 
- read -s -p "New password for the MySQL "root" user: " SQL
+SQL=$(whiptail --title "MariaDB Password" --passwordbox "Enter your New password for the MariaDB " 10 60 3>&1 1>&2 2>&3)
   echo 
- read -s -p "Repeat password for the MySQL "root" user: " SQL2
+SQL2=$(whiptail --title "MariaDB Password" --passwordbox "Enter your Repeat password for the MariaDB " 10 60 3>&1 1>&2 2>&3)
  echo " "
     [ "$SQL" = "$SQL2" ] && break
-echo -e "${red}Please try again${NC}"
 done
 groupadd mysql
-useradd -r -g mysql mysql
-fi
-			
+useradd -r -g mysql mysql	
+else
+MariaDB="n" 		
+fi 
+else
+MariaDB="n"
+fi		
+		
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
@@ -147,8 +150,8 @@ rm -r *.deb
 rm -r *.rpm 
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 fi
-
 wget https://sourceforge.net/projects/lemp-info/files/lempNEW.tar.gz -P /home/lemp/ 
+sleep 1
 tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
 rm -r /home/lemp/lempNEW.tar.gz
 
@@ -362,12 +365,17 @@ sudo chmod 777 /home/lemp/phpmyadmin/tmp
 sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
 
 if [ $MariaDB != "y" ]; then
+
 if [ -f /etc/init.d/mysql* ] || [ -d "/var/log/mysql" ] ; then
-read -p "Do you want to install database phpmyadmin ? [y/n]: " phpmyadmin
+if (whiptail --title "database phpmyadmin." --yesno "Do you want to install database phpmyadmin ?" 8 78); then   
+phpmyadmin="y"
+else
+phpmyadmin="n"	 
+fi 
 if [ $phpmyadmin = "y" ];then
 while true; do
  echo 
-read -s -p "Please enter a password for your MySQL : " mysqlpassword
+mysqlpassword=$(whiptail --title "MariaDB Password" --passwordbox "Please enter your mysql password." 10 60 3>&1 1>&2 2>&3)
  echo 
 RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
 [ "$RESULT" = "mysql" ] && break
@@ -379,8 +387,10 @@ fi
 fi
 fi
 
-read -p "$(tput setaf 1)Reboot now (y/n)?$(tput sgr0) " CONT
-if [ "$CONT" == "y" ] || [ "$CONT" == "Y" ]; then
+if (whiptail --title "Restart." --yesno "Do you want to restart now ?" 8 78); then   
 reboot
-fi
+else
+echo " "   	
+fi 
+
 exit 1
