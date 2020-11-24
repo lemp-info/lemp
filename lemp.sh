@@ -285,7 +285,8 @@ mv /home/lemp/config.inc.php /home/lemp/phpmyadmin/
 mkdir /home/lemp/phpmyadmin/tmp
 
 if [ $MariaDB = "y" ];then
-wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
+wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
+#wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
 sudo mv  /home/lemp/mariadb-10.5.0-linux-systemd-x86_64 /home/lemp/mysql
 rm -rf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
