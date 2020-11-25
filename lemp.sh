@@ -29,7 +29,7 @@ arch=$(uname -m)
 openssl=$(openssl version)
 file=/etc/rc.local
 file2=$(cat /etc/rc.local | grep -c "/etc/rc.d/rc0.d/lemp start")
-type mysql >/dev/null 2>&1 && mysql="y" || mysql="n"	 
+type mysql >/dev/null 2>&1 && mysqlstatus="y" || mysqlstatus="n"	 
 
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
@@ -68,7 +68,8 @@ echo -e "${jeshile} ?         NEW password for your MySQL          ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 
-if [ ! -f /etc/init.d/mysql* ] || [ ! -d "/var/log/mysql" ] ; then
+#if [ ! -f /etc/init.d/mysql* ] || [ ! -d "/var/log/mysql" ] ; then
+if [ $mysqlstatus != "y" ]; then
 if (whiptail --title "MariaDB" --yesno "Do you want to install MariaDB ?" 8 78); then   
 MariaDB="y"	 
 while true; do
@@ -373,7 +374,8 @@ sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
 
 if [ $MariaDB != "y" ]; then
 
-if [ -f /etc/init.d/mysql* ] || [ -d "/var/log/mysql" ] ; then
+#if [ -f /etc/init.d/mysql* ] || [ -d "/var/log/mysql" ] ; then
+if [ $mysqlstatus = "y" ]; then
 if (whiptail --title "database phpmyadmin." --yesno "Do you want to install database phpmyadmin ?" 8 78); then   
 phpmyadmin="y"
 else
