@@ -68,7 +68,6 @@ echo -e "${jeshile} ?         NEW password for your MySQL          ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 
-#if [ ! -f /etc/init.d/mysql* ] || [ ! -d "/var/log/mysql" ] ; then
 if [ $mysqlstatus = "n" ]; then
 if (whiptail --title "MariaDB" --yesno "Do you want to install MariaDB ?" 8 78); then   
 MariaDB="y"	 
@@ -152,7 +151,6 @@ rm -r *.deb
 rm -r *.rpm 
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 fi
-#wget https://sourceforge.net/projects/lemp-info/files/lempNEW.tar.gz -P /home/lemp/ 
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies.txt
 sleep 1
 tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
@@ -245,9 +243,6 @@ fi
 if [[ $osrelease  = "8."* ]] ; then 
 yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
 fi
-
-#wget https://sourceforge.net/projects/lemp-info/files/lemp-CentOS.tar.gz -P /home/lemp/ 
-#wget https://raw.githubusercontent.com/lemp-info/lemp/master/script/lemp-CentOS.tar.gz  -P /home/lemp/ 
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1OiDZDnnVCcwQZxAOarrFm3lgMts7fYGd" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1OiDZDnnVCcwQZxAOarrFm3lgMts7fYGd" -O /home/lemp/lemp-CentOS.tar.gz  && rm -rf /tmp/cookies.txt
 tar -xvzf  /home/lemp/lemp-CentOS.tar.gz -C /home/lemp
 rm -rf /home/lemp/lemp-CentOS.tar.gz
@@ -261,7 +256,6 @@ cp /home/lemp/script/mysql.server /etc/rc.d/init.d/
 mv /home/lemp/script/* /etc/rc.d/rc0.d/
 
 if [[ $osrelease  = "7."* ]] ; then 
-#wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS7PHP.tar.gz -P /home/lemp/ 
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O /home/lemp/lempCentOS7PHP.tar.gz  && rm -rf /tmp/cookies.txt
 sudo chmod -R 755 /home/lemp/lempCentOS7PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS7PHP.tar.gz -C /home/lemp/
@@ -373,8 +367,6 @@ sudo chmod 777 /home/lemp/phpmyadmin/tmp
 sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
 
 if [ $MariaDB != "y" ]; then
-
-#if [ -f /etc/init.d/mysql* ] || [ -d "/var/log/mysql" ] ; then
 if [ $mysqlstatus = "y" ]; then
 if (whiptail --title "database phpmyadmin." --yesno "Do you want to install database phpmyadmin ?" 8 78); then   
 phpmyadmin="y"
