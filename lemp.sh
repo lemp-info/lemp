@@ -87,15 +87,13 @@ fi
 else
 MariaDB="n"
 fi		
-		
+
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
-
 /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
-
 if [ "$osname" == "Ubuntu"  ] ; then 
 apt-get -y update
 apt-get remove -y apache2 
@@ -173,7 +171,6 @@ rm -r /home/lemp/*.deb
 fi
 
 if [[ $openssl != *"1.1.1"* ]]; then
-#wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz  -P /home/lemp/ 
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
 cd /home/lemp/openssl-1.1.1c/
 ./config
@@ -189,22 +186,6 @@ fi
 if [ "$osname" == "CentOS" ]; then
 yum remove  -y httpd
 yum istall  -y wget
-#yum install -y libxml2 libxml2-devel 
-#yum install -y openssl openssl-devel
-#yum install -y bzip2 bzip2-devel 
-#yum install -y libcurl libcurl-devel
-#yum install -y libjpeg libjpeg-devel
-#yum install -y libpng libpng-devel
-#yum install -y freetype freetype-devel
-#yum install -y gmp gmp-devel 
-#yum install -y libmcrypt ibmcrypt-devel 
-#yum install -y readline readline-devel 
-#yum install -y libxslt libxslt-devel 
-#yum install -y libaio-devel.x86_64 
-#yum install -y libncurses* 
-#yum install -y sqlite-devel.x86_64 
-#yum install -y systemd-devel 
-##yum install -y iptables-services
 yum -y install libxml2 libxml2-devel
 yum -y install bzip2 bzip2-devel
 yum -y install curl-devel
@@ -286,7 +267,6 @@ mkdir /home/lemp/phpmyadmin/tmp
 
 if [ $MariaDB = "y" ];then
 wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
-#wget http://mirrors.up.pt/pub/mariadb//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
 sudo mv  /home/lemp/mariadb-10.5.0-linux-systemd-x86_64 /home/lemp/mysql
 rm -rf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
