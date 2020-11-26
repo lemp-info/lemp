@@ -244,7 +244,6 @@ rm -rf /home/lemp/lempCentOS7PHP.tar.gz
 fi
 
 if [[ $osrelease  = "8."* ]] ; then 
-#wget  https://sourceforge.net/projects/lemp-info/files/lempCentOS8PHP.tar.gz -P /home/lemp/ 
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O /home/lemp/lempCentOS8PHP.tar.gz  && rm -rf /tmp/cookies.txt
 sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
