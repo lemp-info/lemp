@@ -206,7 +206,7 @@ yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-5.9.5-3.el7.x
 yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-devel-5.9.5-3.el7.x86_64.rpm -y
 cd /root
 yum remove -y libzip
-wget https://nih.at/libzip/libzip-1.2.0.tar.gz
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1QzWUFvZ6QCaHISVyOEsgrxlW9bm7LaMR" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1QzWUFvZ6QCaHISVyOEsgrxlW9bm7LaMR" -O /roor/libzip-1.2.0.tar.gz  && rm -rf /tmp/cookies.txt
 tar -zxvf libzip-1.2.0.tar.gz
 cd libzip-1.2.0
 ./configure
