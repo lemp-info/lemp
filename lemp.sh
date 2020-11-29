@@ -224,7 +224,7 @@ fi
 if [[ $osrelease  = "8."* ]] ; then 
 yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
 fi
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1OiDZDnnVCcwQZxAOarrFm3lgMts7fYGd" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1OiDZDnnVCcwQZxAOarrFm3lgMts7fYGd" -O /home/lemp/lemp-CentOS.tar.gz  && rm -rf /tmp/cookies.txt
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1nF3EdYIVzNc4Hos2zzfR_XTj1vshPgtd" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1nF3EdYIVzNc4Hos2zzfR_XTj1vshPgtd" -O /home/lemp/lemp-CentOS.tar.gz  && rm -rf /tmp/cookies.txt
 tar -xvzf  /home/lemp/lemp-CentOS.tar.gz -C /home/lemp
 rm -rf /home/lemp/lemp-CentOS.tar.gz
 sudo chmod -R 755 /home/lemp/start-stop-daemon
