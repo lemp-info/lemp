@@ -346,6 +346,13 @@ fi
 sudo chmod 755 /home/lemp/phpmyadmin/tmp
 sudo chmod 777 /home/lemp/phpmyadmin/tmp 
 sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
+sleep 2
+rm -rf /home/lemp/www/*
+wget  https://github.com/lemp-info/lemp/raw/master/script/lempweb.tar.gz -P /home/lemp/www 
+sudo tar -xvf /home/lemp/www/lempweb.tar.gz -C /home/lemp/www
+rm -rf /home/lemp/www/lempweb.tar.gz
+sudo ln -s /home/lemp/phpmyadmin /home/lemp/www
+
 
 if [ $MariaDB != "y" ]; then
 if [ $mysqlstatus = "y" ]; then
