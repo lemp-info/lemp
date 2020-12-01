@@ -129,14 +129,13 @@ sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sleep 1
 sudo apt-get install -y --force-yes sysstat  
 fi
-
+sleep 2
 if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ]; then
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sudo apt-get install -y --force-yes sysstat 
 wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lemp/raw/master/libpng12-0_1.2.54-1ubuntu1_amd64.deb && dpkg -i /tmp/libpng12.deb   && rm /tmp/libpng12.deb   
 fi
-
-sleep 1
+sleep 2
 if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" ] ; then 
 sudo apt-get install -y --force-yes libncurses5
 sudo apt-get remove -y libcurl4  
