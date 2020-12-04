@@ -260,7 +260,11 @@ fi
 if [[ $osrelease  = "8."* ]] ; then 
 yum install https://github.com/lemp-info/lemp/raw/master/oniguruma-6.8.2-1.el8.x86_64.rpm -y
 fi
+while true; do
 wget https://github.com/lemp-info/lemp/raw/master/script/lemp-CentOS.tar.gz -P /home/lemp
+sleep 1
+ [ -f /home/lemp/lemp-CentOS.tar.gz ] && break
+done
 #wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1nF3EdYIVzNc4Hos2zzfR_XTj1vshPgtd" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1nF3EdYIVzNc4Hos2zzfR_XTj1vshPgtd" -O /home/lemp/lemp-CentOS.tar.gz  && rm -rf /tmp/cookies.txt
 tar -xvzf  /home/lemp/lemp-CentOS.tar.gz -C /home/lemp
 rm -rf /home/lemp/lemp-CentOS.tar.gz
