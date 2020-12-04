@@ -79,8 +79,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
 ## how to login to proftpd server ( FTP )
      1. set password for user lemp: sudo passwd lemp
      2. ftp://ipadderss/ 
-     username: lemp
-     password: lemp password
+     username: lemp or root
+     password: lemp password or root password
      
 ## Set MariaDB root password 
      mysql -u root
