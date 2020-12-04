@@ -391,7 +391,12 @@ sudo chmod 777 /home/lemp/phpmyadmin/tmp
 sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
 sleep 2
 rm -rf /home/lemp/www/*
+while true; do
 wget  https://github.com/lemp-info/lemp/raw/master/script/lempweb.tar.gz -P /home/lemp/www 
+sleep 1
+ [ -f /home/lemp/www/lempweb.tar.gz ] && break
+done
+sleep 1
 sudo tar -xvf /home/lemp/www/lempweb.tar.gz -C /home/lemp/www
 rm -rf /home/lemp/www/lempweb.tar.gz
 sudo ln -s /home/lemp/phpmyadmin /home/lemp/www/phpmyadmin
