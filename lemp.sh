@@ -61,7 +61,38 @@ echo -e "${red} ?[+]        The system is not supported        ? \e[0m"
 echo -e "${red} ???????????????????????????????????????????????? \e[0m"
 exit 3  
 fi 
-
+#
+if [ $mysqlstatus = "y" ] && [ "$osname" == "Ubuntu"  ] ; then
+if whiptail   --title "Mysql already installed" --yesno "do you want to uninstall mysql ?" 8 78 --defaultno; then
+if (whiptail --title "database phpmyadmin." --yesno "Do you want to database backup ?" 8 78); then   
+backup="y"
+else
+backup="n"	 
+fi 
+if [ $backup = "y" ];then
+while true; do
+ echo 
+mysqlpassword=$(whiptail --title "MariaDB Password" --passwordbox "Please enter your mysql password." 10 60 3>&1 1>&2 2>&3)
+ echo 
+RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
+[ "$RESULT" = "mysql" ] && break
+done
+sleep 1
+mysqldump -uroot -p"$mysqlpassword" --all-databases > /root/all_databases.sql
+sleep 1
+fi 
+sudo apt-get remove --purge mysql* -y
+sleep 1
+sudo apt-get purge mysql* -y
+sudo apt-get autoremove -y
+sudo apt-get autoclean -y
+sudo apt-get remove dbconfig-mysql -y
+sudo apt-get dist-upgrade -y  
+else
+  echo " "
+fi
+fi
+#
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?         NEW password for your MySQL          ? \e[0m"
