@@ -297,7 +297,11 @@ mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
 mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
 rm -rf /home/lemp/phpmyadmin
 sleep 1
+while true; do
 wget https://github.com/lemp-info/lemp/raw/master/phpmyadmin/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
+sleep 1
+ [ -f /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz ] && break
+done
 sleep 1
 sudo chmod -R 755 /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
 sleep 1
