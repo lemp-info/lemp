@@ -180,7 +180,11 @@ rm -r *.deb
 rm -r *.rpm 
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 fi
+while true; do
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies.txt
+sleep 1
+ [ -f /home/lemp/lempNEW.tar.gz ] && break
+done
 sleep 1
 tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
 rm -r /home/lemp/lempNEW.tar.gz
