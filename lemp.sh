@@ -278,14 +278,22 @@ cp /home/lemp/script/mysql.server /etc/rc.d/init.d/
 mv /home/lemp/script/* /etc/rc.d/rc0.d/
 
 if [[ $osrelease  = "7."* ]] ; then 
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O /home/lemp/lempCentOS7PHP.tar.gz  && rm -rf /tmp/cookies.txt
+while true; do
+ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O /home/lemp/lempCentOS7PHP.tar.gz  && rm -rf /tmp/cookies.txt
+ sleep 1
+ [ -f /home/lemp/lempCentOS7PHP.tar.gz ] && break
+done
 sudo chmod -R 755 /home/lemp/lempCentOS7PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS7PHP.tar.gz -C /home/lemp/
 rm -rf /home/lemp/lempCentOS7PHP.tar.gz
 fi
 
 if [[ $osrelease  = "8."* ]] ; then 
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O /home/lemp/lempCentOS8PHP.tar.gz  && rm -rf /tmp/cookies.txt
+while true; do
+ wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O /home/lemp/lempCentOS8PHP.tar.gz  && rm -rf /tmp/cookies.txt
+ sleep 1
+ [ -f /home/lemp/lempCentOS8PHP.tar.gz ] && break
+done
 sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
 rm -rf /home/lemp/lempCentOS8PHP.tar.gz
