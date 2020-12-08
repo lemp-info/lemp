@@ -79,6 +79,7 @@ rm -rf /usr/local/bin/resolve_stack_dump
 rm -rf /usr/local/bin/myisamchk  
 rm -rf /usr/local/bin/myisampack  
 rm -rf /usr/local/bin/replace
+rm -rf /etc/my.cnf
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 sudo apt-get remove dbconfig-mysql -y
