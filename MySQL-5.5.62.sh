@@ -96,15 +96,13 @@ if [ $mysqlstatus = "n" ]; then
   
 while true; do
     echo 
-SQL=$(whiptail --title "MySQL Password" --passwordbox "Enter your New password for the MySQL " 10 60 3>&1 1>&2 2>&3)
+MySQL=$(whiptail --title "MySQL Password" --passwordbox "Enter your New password for the MySQL " 10 60 3>&1 1>&2 2>&3)
   echo 
-SQL2=$(whiptail --title "MySQL Password" --passwordbox "Enter your Repeat password for the MySQL " 10 60 3>&1 1>&2 2>&3)
+MySQL2=$(whiptail --title "MySQL Password" --passwordbox "Enter your Repeat password for the MySQL " 10 60 3>&1 1>&2 2>&3)
  echo " "
-    [ "$SQL" = "$SQL2" ] && break
+    [ "$MySQL" = "$MySQL2" ] && break
 done
-  
-  
-
+ 
 echo " "
 echo -e "${jeshile} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
 echo -e "${jeshile} â”‚            Install MySQL Server              â”‚ \e[0m"
@@ -143,7 +141,7 @@ sudo tar -xvf mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz
 sleep 1
 sudo mv  mysql-5.5.62-linux-glibc2.12-x86_64 mysql
 sleep 1
-cd mysql
+cd /usr/local/mysql
 sleep 1
 sudo chown -R mysql:mysql *
 sleep 1
@@ -163,7 +161,7 @@ echo -e " \n "
 sleep 1
 sudo cp support-files/mysql.server /etc/init.d/mysql.server
 sleep 1
-sudo bin/mysqladmin -u root password $SQL 
+sudo bin/mysqladmin -u root password $MySQL2 
 sleep 1
 sleep 1
 ln -s /usr/local/mysql/bin/* /usr/local/bin/
