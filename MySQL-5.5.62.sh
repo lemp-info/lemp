@@ -17,6 +17,7 @@ echo -e "${jeshile} â””â”€â”€â”€â”€â”€â”€â�
 echo " " 
 sudo apt update  
 sudo apt install -y --force-yes lsb-core 
+sudo apt install whiptail
 
 osname=$(lsb_release -si)
 osrelease=$(lsb_release -sr)
