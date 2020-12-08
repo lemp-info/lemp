@@ -67,6 +67,18 @@ sudo apt-get remove --purge mysql* -y
 sleep 1
 sudo apt-get purge mysql* -y
 rm -rf /usr/local/mysql
+rm -rf /usr/local/bin/mysql*
+rm -rf /usr/local/bin/innochecksum  
+rm -rf /usr/local/bin/myisam_ftdump 
+rm -rf /usr/local/bin/my_print_defaults  
+rm -rf /usr/local/bin/resolveip
+rm -rf /usr/local/bin/msql2mysql  
+rm -rf /usr/local/bin/myisamlog  
+rm -rf /usr/local/bin/perror    
+rm -rf /usr/local/bin/resolve_stack_dump
+rm -rf /usr/local/bin/myisamchk  
+rm -rf /usr/local/bin/myisampack  
+rm -rf /usr/local/bin/replace
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 sudo apt-get remove dbconfig-mysql -y
