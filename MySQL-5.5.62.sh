@@ -4,6 +4,12 @@ jeshile='\e[40;38;5;82m'
 jo='\e[0m'  
 red='\e[31m'
 yellow='\e[0;93m'
+
+sudo apt update  
+sudo apt install -y --force-yes lsb-core 
+
+clear
+sleep 1
 echo " "
 echo -e "${yellow} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
 echo -e "${yellow} â”‚           installer mysql 5.5.62             â”‚ \e[0m"
@@ -15,8 +21,7 @@ echo -e "${jeshile} â”Œâ”€â”€â”€â”€â”€â”€â”
 echo -e "${jeshile} â”‚               Update System                  â”‚ \e[0m"
 echo -e "${jeshile} â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ک \e[0m"
 echo " " 
-sudo apt update  
-sudo apt install -y --force-yes lsb-core 
+sudo apt update
 
 osname=$(lsb_release -si)
 osrelease=$(lsb_release -sr)
@@ -25,24 +30,20 @@ osDisc=$(lsb_release -sd)
 arch=$(uname -m)
 file=/etc/rc.local
 type mysql >/dev/null 2>&1 && mysqlstatus="y" || mysqlstatus="n"	 
+rm -rf /usr/local/mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz
 
 echo " "
 echo -e "${jeshile} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
 echo -e "${jeshile} â”‚            Checking System Version           â”‚ \e[0m"
 echo -e "${jeshile} â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ک \e[0m"
 echo " " 
-if [ "$osname" == "Ubuntu"  ]; then
-if [ "$arch" == "x86_64"  ]; then
-echo "" 
-else
-echo -e "${red} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
-echo -e "${red} â”‚[+]        The system is not supported        â”‚ \e[0m"
-echo -e "${red} â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ک \e[0m"
-exit 3
+sleep 5
+if [ "$osname" == "Ubuntu"  ] && [ "$arch" == "x86_64"  ] ;  then
+ 
+ if [ $mysqlstatus = "y" ]  ; then
 
-#
-if [ $mysqlstatus = "y" ] && [ "$osname" == "Ubuntu"  ] ; then
 if whiptail   --title "Mysql already installed" --yesno "do you want to uninstall mysql ?" 8 78 --defaultno; then
+
 if (whiptail --title "database phpmyadmin." --yesno "Do you want to database backup ?" 8 78); then   
 backup="y"
 else
@@ -56,35 +57,28 @@ mysqlpassword=$(whiptail --title "MariaDB Password" --passwordbox "Please enter 
 RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
 [ "$RESULT" = "mysql" ] && break
 done
+
 sleep 1
 mysqldump -uroot -p"$mysqlpassword" --all-databases > /root/all_databases.sql
 sleep 1
 fi 
+
 sudo apt-get remove --purge mysql* -y
 sleep 1
 sudo apt-get purge mysql* -y
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 sudo apt-get remove dbconfig-mysql -y
-sudo apt-get dist-upgrade -y  
+#sudo apt-get dist-upgrade -y  
 else
   echo " "
 fi
-fi
-#
+ fi
 
-echo -e "${red} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
-echo -e "${red} â”‚[+]        The system is not supported        â”‚ \e[0m"
-echo -e "${red} â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ک \e[0m"
-exit 3
-echo " "
+type mysql >/dev/null 2>&1 && mysqlstatus="y" || mysqlstatus="n"	 
 
-if [ $mysqlstatus = "n" ]
-echo -e "${jeshile} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
-echo -e "${jeshile} â”‚         NEW password for your MySQL          â”‚ \e[0m"
-echo -e "${jeshile} â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ک \e[0m"
-echo " " 
-
+if [ $mysqlstatus = "n" ]; then
+  
 while true; do
     echo 
 SQL=$(whiptail --title "MySQL Password" --passwordbox "Enter your New password for the MySQL " 10 60 3>&1 1>&2 2>&3)
@@ -93,6 +87,8 @@ SQL2=$(whiptail --title "MySQL Password" --passwordbox "Enter your Repeat passwo
  echo " "
     [ "$SQL" = "$SQL2" ] && break
 done
+  
+  
 
 echo " "
 echo -e "${jeshile} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
@@ -110,19 +106,28 @@ sleep 3
 sudo apt  install  -y --force-yes libaio1  
 sleep 1
 fi
+
 if [ "$osrelease" == "16.04" ] ; then 
 sudo apt install  -y --force-yes libfile-copy-recursive-perl 
 sleep 1
 sudo apt install  -y --force-yes sysstat   
 fi
+
 sleep 1
+
 if [ "$osrelease" == "19.04" ] ; then 
 sudo apt install  -y --force-yes libncurses5  
 fi
+
+
+while true; do
+wget https://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz -P /usr/local
+sleep 1
+ [ -f /usr/local/mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz ] && break
+done
 sleep 1
 cd /usr/local
-wget https://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz
-sleep 1
+#wget https://dev.mysql.com/get/Downloads/MySQL-5.5/mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz
 sudo tar -xvf mysql-5.5.62-linux-glibc2.12-x86_64.tar.gz
 sleep 1
 sudo mv  mysql-5.5.62-linux-glibc2.12-x86_64 mysql
@@ -182,16 +187,25 @@ echo "exit 0" >> /etc/rc.local
 sleep 1
 chmod +x /etc/rc.local  
 fi
-
-echo -e " \n "
+ 
 if (whiptail --title "Restart." --yesno "Do you want to restart now ?" 8 78); then   
 reboot
 else
 echo " "   	
 fi 
+  
+fi
 
 
+else
+
+echo -e "${red} â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”گ \e[0m"
+echo -e "${red} â”‚[+]        The system is not supported        â”‚ \e[0m"
+echo -e "${red} â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”ک \e[0m"
+sleep 5
+exit 3
+echo " "
+
 fi
-fi
-fi
+
 exit 3
