@@ -115,12 +115,8 @@ groupadd mysql
 sleep 1
 useradd -r -g mysql mysql
 sleep 1
-
-if [ "$osrelease" == "14.04"  ]; then
-sleep 3
-sudo apt  install  -y --force-yes libaio1  
+sudo apt  install  -y --force-yes libaio1 
 sleep 1
-fi
 
 if [ "$osrelease" == "16.04" ] ; then 
 sudo apt install  -y --force-yes libfile-copy-recursive-perl 
