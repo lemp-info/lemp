@@ -26,7 +26,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      
  ## addons   
     MySQL-5.5.62:
-     wget https://raw.githubusercontent.com/lemp-info/lemp/master/MySQL-5.5.62.sh && chmod a+x MySQL-5.5.62.sh && ./MySQL-5.5.62.sh
+       wget https://raw.githubusercontent.com/lemp-info/lemp/master/MySQL-5.5.62.sh && chmod a+x MySQL-5.5.62.sh && ./MySQL-5.5.62.sh
      
      Node.js:
        wget https://sourceforge.net/projects/lemp-info/files/node.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/node.tar.gz -C /home/lemp && rm -r /home/lemp/node.tar.gz && sudo ln -s /home/lemp/node/bin/* /usr/local/bin/  
