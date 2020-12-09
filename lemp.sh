@@ -353,6 +353,8 @@ mv /etc/my.cnf /etc/my.cnf-old
 sleep 1
 sudo chmod -R 755 /home/lemp/mysql/support-files/mysql.server
 sleep 1
+ sudo chown -R  mysql:mysql /home/lemp/mysql
+ sleep 1
 /home/lemp/mysql/support-files/mysql.server start
 sleep 1
 sudo /home/lemp/mysql/bin/mysqladmin -u root password "$SQL"
