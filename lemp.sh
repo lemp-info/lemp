@@ -404,6 +404,8 @@ chmod +x /etc/rc.local
 sudo /etc/rc.d/rc0.d/lemp start
 fi
 
+sed -i 's/50x.html/50x.php/g' /home/lemp/nginx/conf/nginx.conf
+sleep 1
 sudo chmod 755 /home/lemp/phpmyadmin/tmp
 sudo chmod 777 /home/lemp/phpmyadmin/tmp 
 sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
