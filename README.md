@@ -102,6 +102,6 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
 ### www.nginxfriends.org
 ### admin@lemp.info
 
-### Donation 
+### Donate 
 http://bit.ly/34RjJrc
     1 KD = 3.29 USD
