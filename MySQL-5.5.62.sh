@@ -51,9 +51,9 @@ backup="n"
 fi 
 if [ $backup = "y" ];then
 while true; do
- echo 
+echo " " 
 mysqlpassword=$(whiptail --title "MariaDB Password" --passwordbox "Please enter your mysql password." 10 60 3>&1 1>&2 2>&3)
- echo 
+echo " "  
 RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
 [ "$RESULT" = "mysql" ] && break
 done
@@ -89,21 +89,21 @@ sudo apt-get remove dbconfig-mysql -y
 #sudo apt-get dist-upgrade -y  
 
 else
-  echo " "
+echo " "
 fi
- fi
+fi
 
 type mysql >/dev/null 2>&1 && mysqlstatus="y" || mysqlstatus="n"	 
 
 if [ $mysqlstatus = "n" ]; then
   
 while true; do
-    echo 
+echo " " 
 MySQL=$(whiptail --title "MySQL Password" --passwordbox "Enter your New password for the MySQL " 10 60 3>&1 1>&2 2>&3)
-  echo 
+echo " " 
 MySQL2=$(whiptail --title "MySQL Password" --passwordbox "Enter your Repeat password for the MySQL " 10 60 3>&1 1>&2 2>&3)
- echo " "
-    [ "$MySQL" = "$MySQL2" ] && break
+echo " "
+[ "$MySQL" = "$MySQL2" ] && break
 done
  
 echo " "
@@ -199,15 +199,14 @@ echo "exit 0" >> /etc/rc.local
 sleep 1
 chmod +x /etc/rc.local  
 fi
- 
+
 if (whiptail --title "Restart." --yesno "Do you want to restart now ?" 8 78); then   
 reboot
 else
 echo " "   	
-fi 
-  
-fi
+fi  
 
+fi
 
 else
 
