@@ -98,9 +98,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      flush privileges;
      \q
      
-### www.lemp.info
-### www.nginxfriends.org
-### admin@lemp.info
+### www.nginxfriends.com
+### nginxfriends@gmail.com
 
 ### Donate 
 http://bit.ly/34RjJrc
