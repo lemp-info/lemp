@@ -127,6 +127,12 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 if [ "$osname" == "Ubuntu"  ] ; then 
+
+PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
+"1" "PHP 7.3.16" \
+"2" "PHP 7.4.16 " \
+"3" "PHP 8.0.3"   3>&1 1>&2 2>&3)
+
 apt-get -y update
 apt-get remove -y apache2 
 apt-get install -y --force-yes lsb-release nscd curl 
@@ -217,7 +223,29 @@ mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
 rm -r /home/lemp/*.deb
 #sudo ln -s /home/lemp/php/bin/* /usr/bin
+   if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ] || [ "$osrelease" = "20.04" ] ; then
+if [ "$PHPV" = "2" ]   ; then
+ rm -rf /home/lemp/php 
+ while true; do
+wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+sleep 1
+ [[ ! -f /tmp/cookies_lempphp.txt ]] && break
+done
+tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
+rm -r /home/lemp/php.tar.gz
 fi
+if [ "$PHPV" = "3" ]   ; then
+   while true; do
+wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+sleep 1
+ [[ ! -f /tmp/cookies_lempphp.txt ]] && break
+done
+tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
+rm -r /home/lemp/php.tar.gz 
+    
+fi
+  fi
+             fi
 
 if [[ $openssl != *"1.1.1"* ]]; then
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
