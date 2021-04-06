@@ -42,6 +42,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
    
      
 ## update:
+       # 2021/04/06
+     1. added php-7.4.26 &  php-8.0.3 for ubuntu 18-19-20
        # 2020/05/09
      1.NGINX Internal Load Balancing PHP-FPM Upstream  'Faster'
      2.NGINX ssl config
