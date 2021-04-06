@@ -6,6 +6,9 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     To host projects on a Linux server system. 
     Our goal is to teach programming and web hosting    
 
+## install:
+     wget https://raw.githubusercontent.com/lemp-info/lemp/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
+ 
 ## Ubuntu NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
     PHP        Version 7.3.12
@@ -20,9 +23,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     ProFTPD    Version 1.3.5
     phpmyadmin Version 4.9.4
     
-## install:
-     wget https://raw.githubusercontent.com/lemp-info/lemp/master/lemp.sh && chmod a+x lemp.sh && ./lemp.sh
-     
+    
      
  ## addons   
     MySQL-5.5.62:
