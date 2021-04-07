@@ -134,6 +134,9 @@ PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to 
 "2" "PHP 7.4.16 " \
 "3" "PHP 8.0.3"   3>&1 1>&2 2>&3)
   fi
+sudo apt-get -y  clean
+sudo apt-get install  -y  -f
+sudo dpkg --configure -a
 apt-get -y update
 apt-get remove -y apache2 
 apt-get install -y --force-yes lsb-release nscd curl 
