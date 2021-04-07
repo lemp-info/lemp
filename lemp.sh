@@ -127,12 +127,13 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 if [ "$osname" == "Ubuntu"  ] ; then 
-
+ if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ] || [ "$osrelease" = "20.04" ] ; then
+ 
 PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
 "1" "PHP 7.3.16" \
 "2" "PHP 7.4.16 " \
 "3" "PHP 8.0.3"   3>&1 1>&2 2>&3)
-
+  fi
 apt-get -y update
 apt-get remove -y apache2 
 apt-get install -y --force-yes lsb-release nscd curl 
