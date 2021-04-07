@@ -247,7 +247,10 @@ rm -r /home/lemp/php.tar.gz
     
 fi
   fi
-             fi
+sudo apt-get -y  clean
+sudo apt-get install  -y  -f
+sudo dpkg --configure -a
+     fi
 
 if [[ $openssl != *"1.1.1"* ]]; then
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
