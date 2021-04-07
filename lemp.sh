@@ -127,7 +127,7 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 if [ "$osname" == "Ubuntu"  ] ; then 
- if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ] || [ "$osrelease" = "20.04" ] ; then
+ if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] ; then
  
 PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
 "1" "PHP 7.3.16" \
@@ -178,10 +178,7 @@ if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ]; then
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sudo apt-get install -y --force-yes sysstat 
 wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lemp/raw/master/libpng12-0_1.2.54-1ubuntu1_amd64.deb && dpkg -i /tmp/libpng12.deb   && rm /tmp/libpng12.deb  
-wget -q -O /tmp/libicu60_60.2-3ubuntu3_amd64.deb https://github.com/lemp-info/lemp/raw/master/libicu60_60.2-3ubuntu3_amd64.deb && dpkg -i /tmp/libicu60_60.2-3ubuntu3_amd64.deb  && rm /tmp/libicu60_60.2-3ubuntu3_amd64.deb
-wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && rm /tmp/libonig4_6.7.0-1_amd64.deb
-wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libzip4_1.0.1-0ubuntu1_amd64.deb && dpkg -i /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb  && rm /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb
- apt-get install -y --force-yes libcurl4-openssl-dev 
+apt-get install -y --force-yes libcurl4-openssl-dev 
 fi
 sleep 2
 if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" ] ; then 
@@ -195,9 +192,6 @@ sudo dpkg -i *.deb
 rm -r *.deb 
 rm -r *.rpm 
 sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
-wget -q -O /tmp/libicu60_60.2-3ubuntu3_amd64.deb https://github.com/lemp-info/lemp/raw/master/libicu60_60.2-3ubuntu3_amd64.deb && dpkg -i /tmp/libicu60_60.2-3ubuntu3_amd64.deb  && rm /tmp/libicu60_60.2-3ubuntu3_amd64.deb
-wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && rm /tmp/libonig4_6.7.0-1_amd64.deb
-wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libzip4_1.0.1-0ubuntu1_amd64.deb && dpkg -i /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb  && rm /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb
 apt-get install -y --force-yes libcurl4-openssl-dev 
 fi
 sleep 1
@@ -224,8 +218,12 @@ mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
 rm -r /home/lemp/*.deb
 #sudo ln -s /home/lemp/php/bin/* /usr/bin
-   if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ] || [ "$osrelease" = "20.04" ] ; then
-if [ "$PHPV" = "2" ]   ; then
+   if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] ; then
+wget -q -O /tmp/libicu60_60.2-3ubuntu3_amd64.deb https://github.com/lemp-info/lemp/raw/master/libicu60_60.2-3ubuntu3_amd64.deb && dpkg -i /tmp/libicu60_60.2-3ubuntu3_amd64.deb  && rm /tmp/libicu60_60.2-3ubuntu3_amd64.deb
+wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && rm /tmp/libonig4_6.7.0-1_amd64.deb
+wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libzip4_1.0.1-0ubuntu1_amd64.deb && dpkg -i /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb  && rm /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb
+
+if [ "$PHPV" == "2" ]   ; then
  rm -rf /home/lemp/php 
  while true; do
 wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
@@ -235,7 +233,7 @@ done
 tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
 rm -r /home/lemp/php.tar.gz
 fi
-if [ "$PHPV" = "3" ]   ; then
+if [ "$PHPV" == "3" ]   ; then
    while true; do
 wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
 sleep 1
