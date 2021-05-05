@@ -1,0 +1,20 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+ 
+ 
+sleep 2
+sudo /etc/init.d/lemp start
+sleep 2
+sudo /etc/init.d/lemp start
+sleep 2
+sudo /etc/init.d/mysql.server start
+exit 0
