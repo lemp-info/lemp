@@ -111,8 +111,8 @@ SQL2=$(whiptail --title "MariaDB Password" --passwordbox "Enter your Repeat pass
  echo " "
     [ "$SQL" = "$SQL2" ] && break
 done
-groupadd mysql
-useradd -r -g mysql mysql	
+sudo groupadd mysql
+sudo useradd -r -g mysql mysql	
 else
 MariaDB="n" 		
 fi 
@@ -125,10 +125,10 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
+sudo /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 
 
 if [ "$osname" == "Ubuntu"  ] ; then 
-sudo /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
  if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] ; then
  
 PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
@@ -275,7 +275,6 @@ fi
 
 
 if [ "$osname" == "CentOS" ]; then
-  /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 yum remove  -y httpd
 yum istall  -y wget
 yum -y install libxml2 libxml2-devel
