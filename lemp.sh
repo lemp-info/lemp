@@ -37,7 +37,7 @@ echo -e "${jeshile} ?            Checking System Version           ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 
-if [ "$osname" == "Ubuntu"  ] || [ "$osname" == "CentOS"  ]; then
+if [ "$osname" == "Ubuntu"  ] || [ "$osname" == "CentOS"  ]  ||  [ "$osname" == "Zorin"  ] ; then
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?             Support System                   ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
@@ -119,7 +119,7 @@ fi
 else
 MariaDB="n"
 fi		
-
+ 
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
@@ -128,8 +128,8 @@ echo " "
 sudo /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 
 
-if [ "$osname" == "Ubuntu"  ] ; then 
- if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] ; then
+if [ "$osname" == "Ubuntu"  ] ||  [ "$osname" == "Zorin"  ] ; then 
+ if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] || [ "$osrelease" == "15" ]  ; then
  
 PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
 "1" "PHP 7.3.16" \
@@ -238,6 +238,37 @@ sudo apt-get install  -y  -f
 sudo dpkg --configure -a
      fi
 
+
+if [ "$osname" == "Zorin"  ] ; then 
+ if  [ "$osrelease" == "15" ]  ; then
+sudo apt update
+sudo wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && sudo dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && sudo rm /tmp/libonig4_6.7.0-1_amd64.deb
+sudo wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lemp/raw/master/libpng12-0_1.2.54-1ubuntu1_amd64.deb && sudo dpkg -i /tmp/libpng12.deb   && sudo rm /tmp/libpng12.deb  
+
+sleep 1
+while true; do
+sudo wget --load-cookies /tmp/cookies_lemp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lemp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
+sleep 1
+ [[ ! -f /tmp/cookies_lemp.txt ]] && break
+done
+sleep 1
+sudo tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
+sudo rm -r /home/lemp/lempNEW.tar.gz
+ if [ $MariaDB != "y" ]; then
+sudo rm -rf /home/lemp/script/lemp
+sudo mv /home/lemp/script/lemp2 /home/lemp/script/lemp
+sudo rm -r /home/lemp/script/mysql.server
+sudo rm -r /home/lemp/script/my.cnf
+else
+sudo rm -rf /home/lemp/script/lemp2
+fi
+sudo chmod -R 755 /home/lemp/script/*
+sudo mv /home/lemp/script/* /etc/init.d/
+sudo rm -r /home/lemp/*.deb
+
+  fi
+   fi
+ 
 if [ "$PHPV" == "2" ]   ; then
 sudo  rm -rf /home/lemp/php 
  while true; do
@@ -379,7 +410,8 @@ sudo mkdir /home/lemp/phpmyadmin/tmp
 
 if [ $MariaDB = "y" ];then
 while true; do
-sudo wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
+#sudo wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
+sudo wget http://192.168.1.102/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sleep 1
 [ -f /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz ] && break
 done
@@ -419,7 +451,7 @@ mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"
 mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
 fi
 
-if [ "$osname" == "Ubuntu" ]; then
+if [ "$osname" == "Ubuntu" ] || [ "$osname" == "Zorin"  ] ; then
 if [ -f "$file" ]
 then
 sed --in-place '/exit 0/d' /etc/rc.local 
@@ -443,11 +475,12 @@ echo "sleep 2" >> /etc/rc.local
 echo "sudo /etc/init.d/lemp start" >> /etc/rc.local
 echo "exit 0" >> /etc/rc.local
 sleep 1
-chmod +x /etc/rc.local  
+ 
+sudo chmod +x /etc/rc.local  
 fi
-rm -r /home/lemp/openssl-1.1.1c > /dev/null 2>&1
-rm -r /home/lemp/openssl-1.1.1c.tar.gz > /dev/null 2>&1
-sudo /etc/init.d/lemp start
+sudo rm -r /home/lemp/openssl-1.1.1c > /dev/null 2>&1
+sudo rm -r /home/lemp/openssl-1.1.1c.tar.gz > /dev/null 2>&1
+sudo sudo /etc/init.d/lemp start
 fi
 
 if [ "$osname" == "CentOS" ]; then
@@ -466,15 +499,15 @@ sudo chmod 755 /home/lemp/phpmyadmin/tmp
 sudo chmod 777 /home/lemp/phpmyadmin/tmp 
 sudo chmod 755 /home/lemp/phpmyadmin/config.inc.php
 sleep 2
-rm -rf /home/lemp/www/*
+sudo rm -rf /home/lemp/www/*
 while true; do
-wget  https://github.com/lemp-info/lemp/raw/master/script/lempweb.tar.gz -P /home/lemp/www 
+sudo wget  https://github.com/lemp-info/lemp/raw/master/script/lempweb.tar.gz -P /home/lemp/www 
 sleep 1
  [ -f /home/lemp/www/lempweb.tar.gz ] && break
 done
 sleep 1
 sudo tar -xvf /home/lemp/www/lempweb.tar.gz -C /home/lemp/www
-rm -rf /home/lemp/www/lempweb.tar.gz
+sudo rm -rf /home/lemp/www/lempweb.tar.gz
 sudo ln -s /home/lemp/phpmyadmin /home/lemp/www/phpmyadmin
 
 
@@ -498,9 +531,9 @@ mysql -uroot -p"$mysqlpassword" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sq
 fi 
 fi
 fi
-chown lemp:lemp /home/lemp
-chown lemp:lemp /home/lemp/*
-chown -R mysql.mysql /home/lemp/mysql
+sudo chown lemp:lemp /home/lemp
+sudo chown lemp:lemp /home/lemp/*
+sudo chown -R mysql.mysql /home/lemp/mysql
 if (whiptail --title "Restart." --yesno "Do you want to restart now ?" 8 78); then   
 reboot
 else
