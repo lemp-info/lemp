@@ -16,8 +16,8 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 sudo apt install -y update
 sudo apt install -y lsb-core 
-sudo apt install -y --force-yes dialog 
-sudo apt install -y --force-yes whiptail
+sudo apt install -y dialog 
+sudo apt install -y whiptail
 
 yum -y update
 yum -y dialog
@@ -125,8 +125,10 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
-/usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
+
+
 if [ "$osname" == "Ubuntu"  ] ; then 
+sudo /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
  if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] ; then
  
 PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
@@ -134,6 +136,11 @@ PHPV=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to 
 "2" "PHP 7.4.16 " \
 "3" "PHP 8.0.3"   3>&1 1>&2 2>&3)
   fi
+   fi
+  
+  
+if [ "$osname" == "Ubuntu"  ] ; then 
+ 
 sudo apt-get -y  clean
 sudo apt-get install  -y  -f
 sudo dpkg --configure -a
@@ -225,6 +232,11 @@ rm -r /home/lemp/*.deb
 wget -q -O /tmp/libicu60_60.2-3ubuntu3_amd64.deb https://github.com/lemp-info/lemp/raw/master/libicu60_60.2-3ubuntu3_amd64.deb && dpkg -i /tmp/libicu60_60.2-3ubuntu3_amd64.deb  && rm /tmp/libicu60_60.2-3ubuntu3_amd64.deb
 wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && rm /tmp/libonig4_6.7.0-1_amd64.deb
 wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libzip4_1.0.1-0ubuntu1_amd64.deb && dpkg -i /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb  && rm /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb
+  fi
+sudo apt-get -y  clean
+sudo apt-get install  -y  -f
+sudo dpkg --configure -a
+     fi
 
 if [ "$PHPV" == "2" ]   ; then
  rm -rf /home/lemp/php 
@@ -246,11 +258,7 @@ tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
 rm -r /home/lemp/php.tar.gz 
     
 fi
-  fi
-sudo apt-get -y  clean
-sudo apt-get install  -y  -f
-sudo dpkg --configure -a
-     fi
+
 
 if [[ $openssl != *"1.1.1"* ]]; then
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
@@ -265,7 +273,9 @@ rm -r /home/lemp/openssl-1.1.1c.tar.gz
 rm -r /home/lemp/openssl-1.1.1c
 fi
 
+
 if [ "$osname" == "CentOS" ]; then
+  /usr/sbin/useradd -s /sbin/nologin -U -d /home/lemp -m lemp
 yum remove  -y httpd
 yum istall  -y wget
 yum -y install libxml2 libxml2-devel
