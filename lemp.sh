@@ -239,23 +239,23 @@ sudo dpkg --configure -a
      fi
 
 if [ "$PHPV" == "2" ]   ; then
- rm -rf /home/lemp/php 
+sudo  rm -rf /home/lemp/php 
  while true; do
-wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
 sleep 1
  [[ ! -f /tmp/cookies_lempphp.txt ]] && break
 done
-tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
-rm -r /home/lemp/php.tar.gz
+sudo tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
+sudo rm -r /home/lemp/php.tar.gz
 fi
 if [ "$PHPV" == "3" ]   ; then
    while true; do
-wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
 sleep 1
  [[ ! -f /tmp/cookies_lempphp.txt ]] && break
 done
-tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
-rm -r /home/lemp/php.tar.gz 
+sudo tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
+sudo rm -r /home/lemp/php.tar.gz 
     
 fi
 
@@ -357,45 +357,45 @@ yum install -y openssl-devel
 fi
 fi
 
-mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
-mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
-rm -rf /home/lemp/phpmyadmin
+sudo mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
+sudo mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
+sudo rm -rf /home/lemp/phpmyadmin
 sleep 1
 while true; do
-wget https://github.com/lemp-info/lemp/raw/master/phpmyadmin/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
+sudo wget https://github.com/lemp-info/lemp/raw/master/phpmyadmin/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
 sleep 1
  [ -f /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz ] && break
 done
 sleep 1
 sudo chmod -R 755 /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
 sleep 1
-tar -xvzf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz -C /home/lemp/
+sudo tar -xvzf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz -C /home/lemp/
 sleep 0
-rm -rf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
-mv /home/lemp/phpMyAdmin-5.0.2-all-languages /home/lemp/phpmyadmin
-mv /home/lemp/phpmyadmin.sql /home/lemp/phpmyadmin/
-mv /home/lemp/config.inc.php /home/lemp/phpmyadmin/
-mkdir /home/lemp/phpmyadmin/tmp
+sudo rm -rf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
+sudo mv /home/lemp/phpMyAdmin-5.0.2-all-languages /home/lemp/phpmyadmin
+sudo mv /home/lemp/phpmyadmin.sql /home/lemp/phpmyadmin/
+sudo mv /home/lemp/config.inc.php /home/lemp/phpmyadmin/
+sudo mkdir /home/lemp/phpmyadmin/tmp
 
 if [ $MariaDB = "y" ];then
 while true; do
-wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
+sudo wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sleep 1
 [ -f /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz ] && break
 done
 sudo tar -xvf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -C /home/lemp 
 sudo mv  /home/lemp/mariadb-10.5.0-linux-systemd-x86_64 /home/lemp/mysql
-rm -rf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
-rm -rf /home/lemp/mysql/support-files/mysql.server
+sudo rm -rf /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz
+sudo rm -rf /home/lemp/mysql/support-files/mysql.server
 sudo chmod -R 755 /etc/init.d/mysql.server
-cp /etc/init.d/mysql.server /home/lemp/mysql/support-files/
+sudo cp /etc/init.d/mysql.server /home/lemp/mysql/support-files/
 sudo chmod -R 755 /home/lemp
 sudo chmod -R 755 /home/lemp/mysql
 sleep 1
 export PATH=/home/lemp/mysql/bin:$PATH
 sleep 1
-chown -R mysql.mysql /home/lemp/mysql
-rm -rf /home/lemp/mysql/data
+sudo chown -R mysql.mysql /home/lemp/mysql
+sudo rm -rf /home/lemp/mysql/data
 sleep 1
 sudo /home/lemp/mysql/scripts/mysql_install_db --user=mysql --basedir=/home/lemp/mysql/ --datadir=/home/lemp/mysql/data
 echo -e " \n "
@@ -403,15 +403,15 @@ sleep 1
 #sudo /home/lemp/mysql/bin/mysqld_safe --user=mysql --basedir=/home/lemp/mysql/ --datadir=/home/lemp/mysql/data &
 echo -e " \n "
 sleep 1
-ln -s /home/lemp/mysql/bin/* /usr/local/bin/
+sudo ln -s /home/lemp/mysql/bin/* /usr/local/bin/
 sleep 1
-mv /etc/my.cnf /etc/my.cnf-old
+sudo mv /etc/my.cnf /etc/my.cnf-old
 sleep 1
 sudo chmod -R 755 /home/lemp/mysql/support-files/mysql.server
 sleep 1
  sudo chown -R  mysql:mysql /home/lemp/mysql
  sleep 1
-/home/lemp/mysql/support-files/mysql.server start
+sudo /home/lemp/mysql/support-files/mysql.server start
 sleep 1
 sudo /home/lemp/mysql/bin/mysqladmin -u root password "$SQL"
 sleep 1
