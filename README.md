@@ -43,6 +43,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
    
      
 ## update:
+       # 2021/05/06
+     1. SUPPORT ZorinOS  
        # 2021/04/06
      1. added php-7.4.26 &  php-8.0.3 for ubuntu 18-19-20
        # 2020/05/09
@@ -62,7 +64,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      www:            /home/lemp/www 
      MariaDB my.cnf: /home/lemp/mysql/my.cnf
      
- ## Ubuntu Usage : 
+ ## Ubuntu & ZorinOS Usage : 
      sudo /etc/init.d/lemp           {start|stop|restart|status}
      sudo /etc/init.d/nginx          {start|stop|restart|status}
      sudo /etc/init.d/php            {start|stop|restart|status}
