@@ -411,8 +411,7 @@ sudo mkdir /home/lemp/phpmyadmin/tmp
 
 if [ $MariaDB = "y" ];then
 while true; do
-#sudo wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
-sudo wget http://192.168.1.102/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
+sudo wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sleep 1
 [ -f /home/lemp/mariadb-10.5.0-linux-systemd-x86_64.tar.gz ] && break
 done
