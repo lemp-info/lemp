@@ -245,6 +245,7 @@ sudo apt update
 sudo wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && sudo dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && sudo rm /tmp/libonig4_6.7.0-1_amd64.deb
 sudo wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lemp/raw/master/libpng12-0_1.2.54-1ubuntu1_amd64.deb && sudo dpkg -i /tmp/libpng12.deb   && sudo rm /tmp/libpng12.deb  
 sudo wget -q -O /tmp/libaio1_0.deb   http://archive.ubuntu.com/ubuntu/pool/main/liba/libaio/libaio1_0.3.110-5ubuntu0.1_amd64.deb  && sudo dpkg -i /tmp/libaio1_0.deb   && sudo rm /tmp/libaio1_0.deb
+sudo apt-get install -y libpq-dev 
 
 sleep 1
 while true; do
