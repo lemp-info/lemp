@@ -227,8 +227,8 @@ sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
 rm -r /home/lemp/*.deb
-#sudo ln -s /home/lemp/php/bin/* /usr/bin
-   if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] ; then
+ 
+ if [ "$osrelease" == "18.04" ] || [ "$osrelease" == "19.04" ] || [ "$osrelease" == "20.04" ] ; then
 wget -q -O /tmp/libicu60_60.2-3ubuntu3_amd64.deb https://github.com/lemp-info/lemp/raw/master/libicu60_60.2-3ubuntu3_amd64.deb && dpkg -i /tmp/libicu60_60.2-3ubuntu3_amd64.deb  && rm /tmp/libicu60_60.2-3ubuntu3_amd64.deb
 wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && rm /tmp/libonig4_6.7.0-1_amd64.deb
 wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libzip4_1.0.1-0ubuntu1_amd64.deb && dpkg -i /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb  && rm /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb
