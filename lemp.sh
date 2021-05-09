@@ -28,6 +28,7 @@ osrelease=$(lsb_release -sr)
 arch=$(uname -m)
 openssl=$(openssl version)
 file=/etc/rc.local
+filelemp=/home/lemp
 file2=$(cat /etc/rc.local | grep -c "/etc/rc.d/rc0.d/lemp start")
 type mysql >/dev/null 2>&1 && mysqlstatus="y" || mysqlstatus="n"	 
 
@@ -62,7 +63,21 @@ echo -e "${red} ???????????????????????????????????????????????? \e[0m"
 exit 3  
 fi 
 #
-if [ $mysqlstatus = "y" ] && [ "$osname" == "Ubuntu"  ] ; then
+if [ -d "$filelemp" ]; then
+if (whiptail --title "database phpmyadmin." --yesno "Lemp already install ! Do you want to uninstall Lemp  ?" 8 78); then  
+if (whiptail --title "database phpmyadmin." --yesno "Do you want to backup ' /home/lemp/www ' ?" 8 78); then   
+backupwww="y"
+else
+backupwww="n"	 
+fi 
+uninstalllemp="y"
+else
+exit 1
+fi 
+fi
+#
+if [ $mysqlstatus = "y" ]  ; then
+
 if whiptail   --title "Mysql already installed" --yesno "do you want to uninstall mysql ?" 8 78 --defaultno; then
 if (whiptail --title "database phpmyadmin." --yesno "Do you want to database backup ?" 8 78); then   
 backup="y"
