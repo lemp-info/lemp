@@ -11,7 +11,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      
      
 ## Install On AlmaLinux:
-  sudo wget https://raw.githubusercontent.com/KALIXHOSTING/lemp/master/almalinux.sh && sudo chmod a+x almalinux.sh && ./almalinux.sh
+    sudo wget https://raw.githubusercontent.com/KALIXHOSTING/lemp/master/almalinux.sh && sudo chmod a+x almalinux.sh && ./almalinux.sh
  
 ## Ubuntu NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
