@@ -635,6 +635,8 @@ sudo chmod -R 755 /home/lemp/lempCentOS8PHP.tar.gz
 tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
 rm -rf /home/lemp/lempCentOS8PHP.tar.gz
 yum install -y openssl-devel
+sudo firewall-cmd --zone=public --add-service=http --permanent
+sudo firewall-cmd --reload
 fi
 fi
 
