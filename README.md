@@ -8,6 +8,10 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
 
 ## install:
      sudo wget https://raw.githubusercontent.com/lemp-info/lemp/master/lemp.sh && sudo chmod a+x lemp.sh && ./lemp.sh
+     
+     
+## Install On AlmaLinux:
+    sudo wget https://raw.githubusercontent.com/KALIXHOSTING/lemp/master/almalinux.sh && sudo chmod a+x almalinux.sh && ./almalinux.sh
  
 ## Ubuntu NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
@@ -23,6 +27,12 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     ProFTPD    Version 1.3.5
     phpmyadmin Version 4.9.4
     
+## AlmaLinux NGINX MariaDB PHP & ProFTPD + phpMyAdmin
+    nginx      Version 1.17.7
+    PHP        Version 7.3.19
+    MariaDB    Version 10.5.0 
+    ProFTPD    Version 1.3.5
+    phpmyadmin Version 4.9.4
     
      
  ## addons   
@@ -43,6 +53,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
    
      
 ## update:
+        #11/4/21 Added AlmaLinux Support
        # 2021/05/06
      1. SUPPORT ZorinOS  
        # 2021/04/06
@@ -72,6 +83,13 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      sudo /etc/init.d/proftpd        {start|stop|restart|status}
      
  ## CentOS Usage : 
+     sudo /etc/rc0.d/lemp           {start|stop|restart|status}
+     sudo /etc/rc0.d/nginx          {start|stop|restart|status}
+     sudo /etc/rc0.d/php            {start|stop|restart|status}
+     sudo /etc/init.d/mysql.server  {start|stop|restart|status}
+     sudo /etc/rc0.d/proftpd        {start|stop|restart|status}
+
+## AlmaLinux Usage:
      sudo /etc/rc0.d/lemp           {start|stop|restart|status}
      sudo /etc/rc0.d/nginx          {start|stop|restart|status}
      sudo /etc/rc0.d/php            {start|stop|restart|status}
