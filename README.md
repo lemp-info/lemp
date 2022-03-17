@@ -107,6 +107,5 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
 ### nginxfriends@gmail.com
 
 ### Donate 
-http://bit.ly/34RjJrc
-    1 KD = 3.29 USD
+ 
 ### DogeCoin Wallet = DJfqwVRCpWVxg2jSp1TQwWQc2VH6udzTPr
