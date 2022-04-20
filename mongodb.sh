@@ -156,7 +156,9 @@ EOF
   
 
 sed -i 's/mongod --config/mongod --auth --config/g'   /lib/systemd/system/mongod.service
+ sleep 1
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+ sleep 1
 sed -i 's/#security:/security:\n authorization: enabled/g' /etc/mongod.conf
  sleep 1
 sudo systemctl daemon-reload
