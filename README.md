@@ -105,7 +105,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      flush privileges;
      \q
      
-### www.nginxfriends.com
+ 
 ### nginxfriends@gmail.com
 
 ### Donate 
