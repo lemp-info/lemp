@@ -42,7 +42,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
          wget https://sourceforge.net/projects/lemp-info/files/FFmpeg.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/FFmpeg.tar.gz -C /home/lemp && rm -r /home/lemp/FFmpeg.tar.gz && sudo ln -s /home/lemp/FFmpeg/* /usr/local/bin/ 
 
      Anti-DDoS:
-          wget https://github.com/lemp-info/lemp/raw/master/ddos_deflate-0.7.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/ddos_deflate-0.7.tar.gz -C /home/lemp && rm -r  -f /home/lemp/ddos_deflate-0.7.tar.gz  && cd /home/lemp/ddos_deflate-0.7 &&  ./install.sh 
+          wget --load-cookies /tmp/cookies_lemp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lemp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=1n3VClC_zAVOdrxCKJ1SqMiXZg3Q4Bfwf" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1n3VClC_zAVOdrxCKJ1SqMiXZg3Q4Bfwf" -O /home/lemp/ddos_deflate-0.7.tar.gz   && rm -rf /tmp/cookies_lemp.txt  && tar -xvzf  /home/lemp/ddos_deflate-0.7.tar.gz -C /home/lemp && rm -r  -f /home/lemp/ddos_deflate-0.7.tar.gz  && cd /home/lemp/ddos_deflate-0.7 &&  ./install.sh 
+ 
    
      
 ## update:
