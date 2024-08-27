@@ -221,7 +221,8 @@ apt-get install -y --force-yes libcurl4-openssl-dev
 fi
 sleep 1
 while true; do
-wget --load-cookies /tmp/cookies_lemp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lemp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
+#wget --load-cookies /tmp/cookies_lemp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lemp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
+wget --load-cookies /tmp/cookies_lemp.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/lempNEW.tar.gz" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
 sleep 1
  [[ ! -f /tmp/cookies_lemp.txt ]] && break
 done
@@ -257,7 +258,8 @@ sudo dpkg --configure -a
 if [ "$PHPV" == "2" ]   ; then
 sudo  rm -rf /home/lemp/php 
  while true; do
-sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+#sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=19LMjVBWo98ouGrHQW-znaMn3-Cjspnqk" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/php-7.4.16_ubntu18.04.tar.gz" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
 sleep 1
  [[ ! -f /tmp/cookies_lempphp.txt ]] && break
 done
@@ -267,7 +269,8 @@ fi
 
 if [ "$PHPV" == "3" ]   ; then
    while true; do
-sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+#sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempphp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=14RJe1waFVq8JKxXZDnFhwemTw_tnzzzT" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
+sudo wget --load-cookies /tmp/cookies_lempphp.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/php-8.0.3_ubntu18.04.tar.gz" -O /home/lemp/php.tar.gz  && rm -rf /tmp/cookies_lempphp.txt
 sleep 1
  [[ ! -f /tmp/cookies_lempphp.txt ]] && break
 done
@@ -339,6 +342,7 @@ sleep 1
  [ -f /home/lemp/lemp-CentOS.tar.gz ] && break
 done
 #wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1nF3EdYIVzNc4Hos2zzfR_XTj1vshPgtd" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1nF3EdYIVzNc4Hos2zzfR_XTj1vshPgtd" -O /home/lemp/lemp-CentOS.tar.gz  && rm -rf /tmp/cookies.txt
+wget --load-cookies /tmp/cookies.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/lemp-CentOS-platform_.tar.gz" -O /home/lemp/lemp-CentOS.tar.gz  && rm -rf /tmp/cookies.txt
 tar -xvzf  /home/lemp/lemp-CentOS.tar.gz -C /home/lemp
 rm -rf /home/lemp/lemp-CentOS.tar.gz
 sudo chmod -R 755 /home/lemp/start-stop-daemon
@@ -352,7 +356,8 @@ mv /home/lemp/script/* /etc/rc.d/rc0.d/
 
 if [[ $osrelease  = "7."* ]] ; then 
 while true; do
- wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O /home/lemp/lempCentOS7PHP.tar.gz  && rm -rf /tmp/cookies.txt
+#wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=12Aij97O48EH4C14yH_CVQ3yV2ECxh6Og" -O /home/lemp/lempCentOS7PHP.tar.gz  && rm -rf /tmp/cookies.txt
+wget --load-cookies /tmp/cookies.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/lempCentOS7PHP.tar.gz" -O /home/lemp/lempCentOS7PHP.tar.gz  && rm -rf /tmp/cookies.txt
  sleep 1
  [ -f /home/lemp/lempCentOS7PHP.tar.gz ] && break
 done
@@ -363,7 +368,8 @@ fi
 
 if [[ $osrelease  = "8."* ]] ; then 
 while true; do
- wget --load-cookies /tmp/cookies_lempCentOS8PHP.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempCentOS8PHP.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O /home/lemp/lempCentOS8PHP.tar.gz  && rm -rf /tmp/cookies_lempCentOS8PHP.txt
+#wget --load-cookies /tmp/cookies_lempCentOS8PHP.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lempCentOS8PHP.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1k05pv6PIfn0TcgJk5jXyWrqYrI0LtXEF" -O /home/lemp/lempCentOS8PHP.tar.gz  && rm -rf /tmp/cookies_lempCentOS8PHP.txt
+ wget --load-cookies /tmp/cookies_lempCentOS8PHP.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/lempCentOS8PHP.tar.gz" -O /home/lemp/lempCentOS8PHP.tar.gz  && rm -rf /tmp/cookies_lempCentOS8PHP.txt
  sleep 1
  [[ ! -f /tmp/cookies_lempCentOS8PHP.txt ]] && break
 done
