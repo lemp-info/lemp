@@ -89,6 +89,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
 
 ## MongoAdmin
      sudo wget https://raw.githubusercontent.com/lemp-info/lemp/master/mongoadmin.tar.gz -P /home/lemp/ && tar -xvzf  /home/lemp/mongoadmin.tar.gz -C /home/lemp && rm -r /home/lemp/mongoadmin.tar.gz && sudo ln -s /home/lemp/mongoadmin /home/lemp/www/mongoadmin
+   Login: http://yourip/mongoadmin
 
         
 ## how to login to proftpd server ( FTP )
