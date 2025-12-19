@@ -7,7 +7,7 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
     Our goal is to teach programming and web hosting    
 
 ## install:
-     sudo wget https://raw.githubusercontent.com/lemp-info/lemp/master/lemp.sh && sudo chmod a+x lemp.sh && export PATH="/home/lemp/node/bin:/home/lemp/php/bin:/home/lemp/openresty/bin:/home/lemp/openresty/nginx/sbin:/home/lemp/nginx/sbin:/home/lemp/proftpd/sbin:$PATH" && ./lemp.sh  
+     sudo wget https://raw.githubusercontent.com/lemp-info/lemp/master/lemp.sh && sudo chmod a+x lemp.sh && export echo 'export PATH="/home/lemp/node/bin:/home/lemp/php/bin:/home/lemp/openresty/bin:/home/lemp/openresty/nginx/sbin:/home/lemp/nginx/sbin:/home/lemp/proftpd/sbin:$PATH"' >> ~/.bashrc  && source ~/.bashrc && ./lemp.sh  
  
 ## Ubuntu NGINX MariaDB PHP & ProFTPD + phpMyAdmin
     nginx      Version 1.17.7
