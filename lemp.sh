@@ -7,7 +7,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 echo " "
-whiptail --title "Lemp installer" --msgbox "                               www.nginxfriends.com " 8 78
+whiptail --title "Lemp installer" --msgbox "                               https://github.com/lemp-info " 8 78
 sleep 2
 
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
@@ -220,6 +220,8 @@ sudo ln -s /usr/lib64/libpng12.so.0 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 apt-get install -y --force-yes libcurl4-openssl-dev 
 fi
 sleep 1
+
+if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" || [ "$osrelease" = "16.04" ] || [ "$osrelease" = "18.04" ] ; then  
 while true; do
 #wget --load-cookies /tmp/cookies_lemp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lemp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
 wget --load-cookies /tmp/cookies_lemp.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/lempNEW.tar.gz" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
@@ -229,6 +231,21 @@ done
 sleep 1
 tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
 rm -r /home/lemp/lempNEW.tar.gz
+fi
+
+if [ "$osrelease" == "24.04" ] ; then  
+sudo apt install libzip4
+apt install python3-pip -y
+pip3 install gdown --break-system-packages  
+ pip3 install --upgrade gdown   
+/usr/local/bin/gdown --id 1b3y25938EGG9wcCoOKiI4Ldoih8KVIRZ -O /home/lemp/lempNEW.tar.gz
+sleep 1
+tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
+rm -r /home/lemp/lempNEW.tar.gz
+sleep 2
+export PATH="/home/lemp/node/bin:/home/lemp/php/bin:/home/lemp/openresty/bin:/home/lemp/openresty/nginx/sbin:/home/lemp/proftpd/sbin:$PATH"
+  fi
+ 
 
 if [ $MariaDB != "y" ]; then
 rm -rf /home/lemp/script/lemp
@@ -252,7 +269,7 @@ wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/le
 sudo apt-get -y  clean
 sudo apt-get install  -y  -f
 sudo dpkg --configure -a
-     fi
+  
 
 
 if [ "$PHPV" == "2" ]   ; then
@@ -278,8 +295,9 @@ sudo tar -xvzf  /home/lemp/php.tar.gz -C /home/lemp
 sudo rm -r /home/lemp/php.tar.gz 
     
 fi
-sudo ln -s /home/lemp/php/bin/* /usr/bin
 
+if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" || [ "$osrelease" = "16.04" ] || [ "$osrelease" = "18.04" ] ; then  
+sudo ln -s /home/lemp/php/bin/* /usr/bin
 if [[ $openssl != *"1.1.1"* ]]; then
 tar zxvf /home/lemp/openssl-1.1.1c.tar.gz -C /home/lemp
 cd /home/lemp/openssl-1.1.1c/
@@ -292,7 +310,12 @@ ln -s /usr/local/bin/openssl /usr/bin/openssl
 rm -r /home/lemp/openssl-1.1.1c.tar.gz
 rm -r /home/lemp/openssl-1.1.1c
 fi
+  fi
 
+
+
+
+   fi
 
 if [ "$osname" == "CentOS" ]; then
 yum remove  -y httpd
@@ -379,6 +402,8 @@ rm -rf /home/lemp/lempCentOS8PHP.tar.gz
 yum install -y openssl-devel
 fi
 fi
+
+
 
 sudo mv /home/lemp/phpmyadmin/phpmyadmin.sql /home/lemp/
 sudo mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
