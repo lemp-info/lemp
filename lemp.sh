@@ -411,17 +411,17 @@ sudo mv /home/lemp/phpmyadmin/config.inc.php /home/lemp/
 sudo rm -rf /home/lemp/phpmyadmin
 sleep 1
 while true; do
-sudo wget https://github.com/lemp-info/lemp/raw/master/phpmyadmin/phpMyAdmin-5.0.2-all-languages.tar.gz -P /home/lemp/ 
-sleep 1
- [ -f /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz ] && break
+sudo wget https://files.phpmyadmin.net/phpMyAdmin/5.2.3/phpMyAdmin-5.2.3-all-languages.tar.gz  -P /home/lemp/ 
+ sleep 1
+ [ -f /home/lemp/phpMyAdmin-5.2.3-all-languages.tar.gz ] && break
 done
 sleep 1
-sudo chmod -R 755 /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
+sudo chmod -R 755 /home/lemp/phpMyAdmin-5.2.3-all-languages.tar.gz
 sleep 1
-sudo tar -xvzf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz -C /home/lemp/
+sudo tar -xvzf /home/lemp/phpMyAdmin-5.2.3-all-languages.tar.gz -C /home/lemp/
 sleep 0
-sudo rm -rf /home/lemp/phpMyAdmin-5.0.2-all-languages.tar.gz
-sudo mv /home/lemp/phpMyAdmin-5.0.2-all-languages /home/lemp/phpmyadmin
+sudo rm -rf /home/lemp/phpMyAdmin-5.2.3-all-languages.tar.gz
+sudo mv /home/lemp/phpMyAdmin-5.2.3-all-languages /home/lemp/phpmyadmin
 sudo mv /home/lemp/phpmyadmin.sql /home/lemp/phpmyadmin/
 sudo mv /home/lemp/config.inc.php /home/lemp/phpmyadmin/
 sudo mkdir /home/lemp/phpmyadmin/tmp
