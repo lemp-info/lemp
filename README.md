@@ -47,7 +47,13 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
    
      
 ## update:
-   
+        # 2026/01/01
+     1. Add script for ubuntu 24.04
+       . nginx version: openresty/1.27.1.2
+       . PHP 8.3.14 
+       . node  v24.12.0
+       . To proxy requests from Nginx on port 8080 to a Node.js application running on port 3000
+       . OpenResty's Lua support
        # 2021/04/06
      1. added php-7.4.26 &  php-8.0.3 for ubuntu 18-19-20
        # 2020/05/09
