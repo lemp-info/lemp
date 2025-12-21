@@ -231,22 +231,6 @@ done
 sleep 1
 tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
 rm -r /home/lemp/lempNEW.tar.gz
-fi
-
-if [ "$osrelease" == "24.04" ] ; then  
-sudo apt install libzip4
-apt install python3-pip -y
-pip3 install gdown --break-system-packages  
- pip3 install --upgrade gdown   
-/usr/local/bin/gdown --id 1itj8RJOF1MJ1VFO3ZG2lLUXLVDKoGzjd -O /home/lemp/lempNEW.tar.gz
-sleep 1
-tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
-rm -r /home/lemp/lempNEW.tar.gz
-sleep 2
- #export PATH="/home/lemp/node/bin:/home/lemp/php/bin:/home/lemp/openresty/bin:/home/lemp/openresty/nginx/sbin:/home/lemp/proftpd/sbin:$PATH"
- 
-  fi
- 
 
 if [ $MariaDB != "y" ]; then
 rm -rf /home/lemp/script/lemp
@@ -256,6 +240,35 @@ rm -r /home/lemp/script/my.cnf
 else
 rm -rf /home/lemp/script/lemp2
 fi
+
+
+fi
+
+
+
+if [ "$osrelease" == "24.04" ] ; then  
+sudo apt install libzip4
+apt install python3-pip -y
+pip3 install gdown --break-system-packages  
+ pip3 install --upgrade gdown   
+/usr/local/bin/gdown --id 1cudWLFAI2f5g76KLk7ZTymr_tyhinDlT -O /home/lemp/lempNEW.tar.gz
+sleep 1
+tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
+rm -r /home/lemp/lempNEW.tar.gz
+sleep 2
+ #export PATH="/home/lemp/node/bin:/home/lemp/php/bin:/home/lemp/openresty/bin:/home/lemp/openresty/nginx/sbin:/home/lemp/proftpd/sbin:$PATH"
+ 
+ 
+rm -rf /home/lemp/script/lemp
+mv /home/lemp/script/lemp2 /home/lemp/script/lemp
+rm -r /home/lemp/script/mysql.server
+rm -r /home/lemp/script/my.cnf
+ 
+
+  fi
+ 
+
+
 
 sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
@@ -267,11 +280,12 @@ wget -q -O /tmp/libicu60_60.2-3ubuntu3_amd64.deb https://github.com/lemp-info/le
 wget -q -O /tmp/libonig4_6.7.0-1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libonig4_6.7.0-1_amd64.deb && dpkg -i /tmp/libonig4_6.7.0-1_amd64.deb && rm /tmp/libonig4_6.7.0-1_amd64.deb
 wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/lemp/raw/master/libzip4_1.0.1-0ubuntu1_amd64.deb && dpkg -i /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb  && rm /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb
   fi
+  
+  
 sudo apt-get -y  clean
 sudo apt-get install  -y  -f
 sudo dpkg --configure -a
   
-
 
 if [ "$PHPV" == "2" ]   ; then
 sudo  rm -rf /home/lemp/php 
@@ -297,6 +311,9 @@ sudo rm -r /home/lemp/php.tar.gz
     
 fi
 
+
+
+
 if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" || [ "$osrelease" = "16.04" ] || [ "$osrelease" = "18.04" ] ; then  
 sudo ln -s /home/lemp/php/bin/* /usr/bin
 if [[ $openssl != *"1.1.1"* ]]; then
@@ -314,9 +331,12 @@ fi
   fi
 
 
-
-
-   fi
+sudo chown lemp:lemp /home/lemp
+sudo chown lemp:lemp /home/lemp/*
+ 
+   fi  
+   
+ 
 
 if [ "$osname" == "CentOS" ]; then
 yum remove  -y httpd
@@ -402,6 +422,8 @@ tar -xvzf /home/lemp/lempCentOS8PHP.tar.gz -C /home/lemp/
 rm -rf /home/lemp/lempCentOS8PHP.tar.gz
 yum install -y openssl-devel
 fi
+
+
 fi
 
 
@@ -426,7 +448,10 @@ sudo mv /home/lemp/phpmyadmin.sql /home/lemp/phpmyadmin/
 sudo mv /home/lemp/config.inc.php /home/lemp/phpmyadmin/
 sudo mkdir /home/lemp/phpmyadmin/tmp
 
-if [ $MariaDB = "y" ];then
+
+ 
+
+if [ $MariaDB = "y" ]  && [ "$osrelease" != "24.04" ]  ;then
 while true; do
 sudo wget https://archive.mariadb.org//mariadb-10.5.0/bintar-linux-systemd-x86_64/mariadb-10.5.0-linux-systemd-x86_64.tar.gz -P /home/lemp/ 
 sleep 1
@@ -467,6 +492,142 @@ sleep 1
 mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"  
 mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
 fi
+  
+  
+  
+   
+  
+  
+if [ $MariaDB = "y" ]  && [ "$osrelease" = "24.04" ]  ;then
+ 
+# ==========================================================
+# HARDCODED INSTALLER FOR UBUNTU 24.04 (No Variables)
+# ==========================================================
+cd
+
+echo ">>> Cleaning up previous installs..."
+systemctl stop mariadb 2>/dev/null
+systemctl disable mariadb 2>/dev/null
+rm -f /etc/systemd/system/mariadb.service
+rm -f /root/.my.cnf
+systemctl daemon-reload
+pkill -f mariadbd 2>/dev/null
+rm -rf /home/lemp/mysql
+
+echo ">>> Installing dependencies..."
+ sleep 1
+apt-get install -y  tar    
+apt-get install -y libaio1t64  
+apt-get install -y  acl
+
+
+echo ">>> Fixing libncurses5 library issue..."
+wget -q http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb
+wget -q http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb
+dpkg -i libtinfo5_6.4-2_amd64.deb libncurses5_6.4-2_amd64.deb
+rm -f libtinfo5_6.4-2_amd64.deb libncurses5_6.4-2_amd64.deb
+
+
+echo ">>> Setting up user and directories..."
+groupadd -f mysql
+useradd -r -g mysql -s /bin/bash mysql 2>/dev/null || true
+mkdir -p /home/lemp/mysql/data
+
+echo ">>> Downloading MariaDB..."
+wget -O mariadb.tar.gz https://archive.mariadb.org/mariadb-10.11.6/bintar-linux-systemd-x86_64/mariadb-10.11.6-linux-systemd-x86_64.tar.gz
+
+echo ">>> Extracting files..."
+tar -xf mariadb.tar.gz -C /home/lemp/mysql --strip-components=1
+rm -f mariadb.tar.gz
+
+echo ">>> Setting permissions..."
+sudo chown -R mysql:mysql /home/lemp/mysql
+sudo chmod 755 /home/lemp/mysql
+sudo chmod +x /home/lemp
+chown -R mysql:mysql /home/lemp/mysql
+setfacl -m u:mysql:rx /home/lemp
+
+echo ">>> Initializing database..."
+cd /home/lemp/mysql
+su -s /bin/bash mysql -c "./scripts/mariadb-install-db --no-defaults --basedir=/home/lemp/mysql --datadir=/home/lemp/mysql/data --auth-root-authentication-method=normal"
+
+echo ">>> Creating configuration file..."
+cat > /home/lemp/mysql/my.cnf <<EOF
+[client]
+port = 3306
+socket = /home/lemp/mysql/mysql.sock
+
+[mysqld]
+user = mysql
+port = 3306
+basedir = /home/lemp/mysql
+datadir = /home/lemp/mysql/data
+socket = /home/lemp/mysql/mysql.sock
+pid-file = /home/lemp/mysql/mysql.pid
+bind-address = 0.0.0.0
+log-error = /home/lemp/mysql/mariadb.err
+lc-messages-dir = /home/lemp/mysql/share
+lc-messages = en_US
+max_connections = 500
+innodb_buffer_pool_size = 256M
+EOF
+chown mysql:mysql /home/lemp/mysql/my.cnf
+
+echo ">>> Creating Systemd service..."
+cat > /etc/systemd/system/mariadb.service <<EOF
+[Unit]
+Description=MariaDB Database Server (Custom Install)
+After=network.target
+
+[Service]
+Type=simple
+User=mysql
+Group=mysql
+ExecStart=/home/lemp/mysql/bin/mariadbd --defaults-file=/home/lemp/mysql/my.cnf
+TimeoutSec=300
+PrivateTmp=true
+Restart=on-failure
+ProtectHome=false
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable mariadb
+systemctl start mariadb
+sleep 5
+
+echo ">>> Finalizing..."
+if systemctl is-active --quiet mariadb; then
+    # Set Root Password to 'fardin'
+    /home/lemp/mysql/bin/mariadb-admin -u root --socket=/home/lemp/mysql/mysql.sock password "$SQL"
+    
+    # Create auto-login config for root
+    cat > /root/.my.cnf <<EOF
+[client]
+socket=/home/lemp/mysql/mysql.sock
+user=root
+password=$SQL
+EOF
+    chmod 600 /root/.my.cnf
+    
+sudo ln -s /home/lemp/mysql/bin/* /usr/local/bin/
+
+    echo "✅ SUCCESS! Connected via: mysql-custom"
+else
+    echo "❌ FAILED. Check log: /home/lemp/mysql/mariadb.err"
+fi
+
+
+sleep 2
+mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"  
+mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
+
+fi
+
+
+
 
 if [ "$osname" == "Ubuntu" ] ; then
 if [ -f "$file" ]
@@ -551,9 +712,9 @@ mysql -uroot -p"$mysqlpassword" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sq
 fi 
 fi
 fi
-sudo chown lemp:lemp /home/lemp
-sudo chown lemp:lemp /home/lemp/*
-sudo chown -R mysql.mysql /home/lemp/mysql
+
+ 
+
 if (whiptail --title "Restart." --yesno "Do you want to restart now ?" 8 78); then   
 reboot
 else
