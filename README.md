@@ -55,7 +55,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
      5. To proxy requests from Nginx on port 8080 to a Node.js application running on port 3000 : http://ipserver:8080
      6. OpenResty's Lua support
      7. Add mariadb-10.11.6 , Command to run mariadb :  chown -R mysql:mysql /home/lemp/mysql  && systemctl start mariadb
-     8. Command to run nodejs test : pkill -f "/home/lemp/node_project_demo/app.js" ; nohup node /home/lemp/node_project_demo/app.js > /dev/null 2>&1 &
+     8. Add mongodb --version db version v7.0.14 , Command to run mariadb :     systemctl start mongodb
+     9. Command to run nodejs test : pkill -f "/home/lemp/node_project_demo/app.js" ; nohup node /home/lemp/node_project_demo/app.js > /dev/null 2>&1 &
 
        # 2021/04/06
      1. added php-7.4.26 &  php-8.0.3 for ubuntu 18-19-20
