@@ -135,6 +135,37 @@ else
 MariaDB="n"
 fi		
  
+ 
+
+
+if [ "$osrelease" = "24.04" ]; then
+echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
+echo -e "${jeshile} ?         NEW password for your MongoDB          ? \e[0m"
+echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
+echo " " 
+if (whiptail --title "mongoDB" --yesno "Do you want to install mongoDB ?" 8 78); then   
+mongoDB="y"	 
+while true; do
+    echo 
+PASSMONGO=$(whiptail --title "mongoDB Password" --passwordbox "Enter your New password for the mongoDB " 10 60 3>&1 1>&2 2>&3)
+  echo 
+PASSMONGO2=$(whiptail --title "mongoDB Password" --passwordbox "Enter your Repeat password for the mongoDB " 10 60 3>&1 1>&2 2>&3)
+ echo " "
+    [ "$PASSMONGO" = "$PASSMONGO2" ] && break
+done
+ 
+else
+mongoDB="n" 		
+fi 
+else
+mongoDB="n"
+fi		
+ 
+
+
+
+
+ 
 echo " "
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?            Install Lemp  Server              ? \e[0m"
@@ -498,8 +529,9 @@ fi
    
   
   
-if [ $MariaDB = "y" ]  && [ "$osrelease" = "24.04" ]  ;then
- 
+if  [ "$osrelease" = "24.04" ]  ;then
+
+ if [ $MariaDB = "y" ]     ;then
 # ==========================================================
 # HARDCODED INSTALLER FOR UBUNTU 24.04 (No Variables)
 # ==========================================================
@@ -614,9 +646,9 @@ EOF
     
 sudo ln -s /home/lemp/mysql/bin/* /usr/local/bin/
 
-    echo "✅ SUCCESS! Connected via: mysql-custom"
+    echo "? SUCCESS! Connected via: mysql-custom"
 else
-    echo "❌ FAILED. Check log: /home/lemp/mysql/mariadb.err"
+    echo "? FAILED. Check log: /home/lemp/mysql/mariadb.err"
 fi
 
 
@@ -628,6 +660,171 @@ fi
 
 
 
+
+
+ if [ $mongoDB = "y" ]     ;then
+
+# ==========================================================
+# FINAL REPAIRED INSTALLER - MongoDB 7.0
+# Logic: Clean Install -> Start NoAuth -> Create User -> Enable Auth
+# ==========================================================
+
+# --- Variables ---
+INSTALL_DIR="/home/lemp/mongodb"
+DATA_DIR="$INSTALL_DIR/data"
+LOG_DIR="$INSTALL_DIR/log"
+CONFIG_FILE="$INSTALL_DIR/mongod.conf"
+USER="mongodb"
+GROUP="mongodb"
+ 
+
+ 
+MONGO_VER="7.0.14"
+MONGO_URL="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz"
+SHELL_VER="2.3.8"
+SHELL_URL="https://downloads.mongodb.com/compass/mongosh-${SHELL_VER}-linux-x64-openssl3.tgz"
+
+# --- 1. CLEANUP (Factory Reset) ---
+echo ">>> [1/8] Wiping previous installation..."
+systemctl stop mongodb 2>/dev/null
+pkill -f mongod 2>/dev/null
+rm -f /etc/systemd/system/mongodb.service
+systemctl daemon-reload
+
+# ?????: ???? ???? ??? ?????? ?? ???? ???? ?? ???
+if [ -d "$INSTALL_DIR" ]; then
+    echo ">>> Removing old data to ensure clean user creation..."
+    rm -rf "$INSTALL_DIR"
+fi
+
+# --- 2. Dependencies ---
+echo ">>> [2/8] Installing Dependencies..."
+apt-get update
+apt-get install -y wget tar libcurl4 libgssapi-krb5-2 openssl acl
+
+# --- 3. User Setup ---
+echo ">>> [3/8] Setting up User..."
+groupadd -f "$GROUP"
+if ! getent passwd "$USER" > /dev/null 2>&1; then
+    useradd -r -g "$GROUP" -s /bin/false "$USER"
+fi
+
+mkdir -p "$DATA_DIR"
+mkdir -p "$LOG_DIR"
+
+# --- 4. Download ---
+echo ">>> [4/8] Downloading Files..."
+wget -q --show-progress -O mongodb.tgz "$MONGO_URL"
+tar -xf mongodb.tgz -C "$INSTALL_DIR" --strip-components=1
+rm -f mongodb.tgz
+
+wget -q --show-progress -O mongosh.tgz "$SHELL_URL"
+mkdir -p /tmp/mshell
+tar -xf mongosh.tgz -C /tmp/mshell --strip-components=1
+mv /tmp/mshell/bin/mongosh "$INSTALL_DIR/bin/"
+rm -rf /tmp/mshell mongosh.tgz
+
+# --- 5. Config (Phase 1: NO AUTH) ---
+echo ">>> [5/8] Configuring (Security Disabled initially)..."
+
+cat > "$CONFIG_FILE" <<EOF
+storage:
+  dbPath: $DATA_DIR
+
+systemLog:
+  destination: file
+  logAppend: true
+  path: $LOG_DIR/mongod.log
+
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+
+processManagement:
+  timeZoneInfo: /usr/share/zoneinfo
+EOF
+
+# Permissions
+chown -R "$USER":"$GROUP" "$INSTALL_DIR"
+setfacl -m u:"$USER":rx /home/lemp
+
+# Systemd Service
+cat > /etc/systemd/system/mongodb.service <<EOF
+[Unit]
+Description=MongoDB Server
+After=network.target
+
+[Service]
+User=$USER
+Group=$GROUP
+Environment="PATH=$INSTALL_DIR/bin:/usr/bin:/bin"
+ExecStart=$INSTALL_DIR/bin/mongod --config $CONFIG_FILE
+Restart=on-failure
+ProtectHome=false
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable mongodb
+systemctl start mongodb
+
+# Symlinks
+ln -sf "$INSTALL_DIR/bin/mongosh" /usr/local/bin/mongosh
+ln -sf "$INSTALL_DIR/bin/mongod" /usr/local/bin/mongod
+
+echo ">>> Waiting for MongoDB to initialize..."
+sleep 10
+
+# --- 6. Create User ---
+echo ">>> [6/8] Creating Admin User..."
+
+# ???? ?? mongosh (??? ???? ????? ???????? ???? ??? ????)
+"$INSTALL_DIR/bin/mongosh" admin --eval "db.createUser({user: 'admin', pwd: '$PASSMONGO', roles: [{role: 'root', db: 'admin'}]})"
+
+if [ $? -ne 0 ]; then
+    echo "? CRITICAL: Failed to create user. Check logs."
+    cat "$LOG_DIR/mongod.log"
+    exit 1
+fi
+
+# --- 7. Enable Security (Phase 2) ---
+echo ">>> [7/8] Enabling Security & Restarting..."
+systemctl stop mongodb
+
+# ????? ???? ??? ????? ?? ???? ??????
+cat >> "$CONFIG_FILE" <<EOF
+
+security:
+  authorization: enabled
+EOF
+
+systemctl start mongodb
+sleep 5
+
+# --- 8. Verify ---
+echo ">>> [8/8] Testing Connection..."
+
+if systemctl is-active --quiet mongodb; then
+    echo "=================================================="
+    echo "? INSTALLATION COMPLETE!"
+    echo "User: admin"
+    echo "Pass: $PASSMONGO"
+    echo "--------------------------------------------------"
+    echo "Test Command:"
+    echo "mongosh -u admin -p $PASSMONGO --authenticationDatabase admin"
+    echo "=================================================="
+else
+    echo "? Final restart failed. Check log:"
+    cat "$LOG_DIR/mongod.log"
+fi
+
+fi
+
+
+
+fi
 
 if [ "$osname" == "Ubuntu" ] ; then
 if [ -f "$file" ]
