@@ -282,7 +282,7 @@ sudo apt install libzip4
 apt install python3-pip -y
 pip3 install gdown --break-system-packages  
  pip3 install --upgrade gdown   
-/usr/local/bin/gdown --id 1cudWLFAI2f5g76KLk7ZTymr_tyhinDlT -O /home/lemp/lempNEW.tar.gz
+/usr/local/bin/gdown --id  1Gzk0Siug-fcDdb5NfL1qWd5zkclPtkXH -O /home/lemp/lempNEW.tar.gz
 sleep 1
 tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
 rm -r /home/lemp/lempNEW.tar.gz
