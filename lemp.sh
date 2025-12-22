@@ -220,6 +220,7 @@ apt-get install -y --force-yes libaio-dev
 apt-get install -y --force-yes libevent-dev
 apt-get install -y --force-yes openssl libssl-dev make
 apt-get install -y --force-yes curl
+
 if [ "$osrelease" == "16.04"  ] ; then 
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sleep 1
@@ -230,6 +231,7 @@ wget -q -O /tmp/libzip4_1.0.1-0ubuntu1_amd64.deb https://github.com/lemp-info/le
 apt-get install -y --force-yes libcurl4-openssl-dev 
 fi
 sleep 2
+
 if [ "$osrelease" = "18.04" ] || [ "$osrelease" = "19.04" ]; then
 sudo apt-get install -y --force-yes libfile-copy-recursive-perl
 sudo apt-get install -y --force-yes sysstat 
@@ -237,6 +239,7 @@ wget -q -O /tmp/libpng12.deb https://github.com/lemp-info/lemp/raw/master/libpng
 apt-get install -y --force-yes libcurl4-openssl-dev 
 fi
 sleep 2
+
 if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" ] ; then 
 sudo apt-get install -y --force-yes libncurses5
 sudo apt-get remove -y libcurl4  
@@ -252,7 +255,7 @@ apt-get install -y --force-yes libcurl4-openssl-dev
 fi
 sleep 1
 
-if [ "$osrelease" == "19.04" ] || [ "$osrelease" = "20.04" || [ "$osrelease" = "16.04" ] || [ "$osrelease" = "18.04" ] ; then  
+if  [ "$osrelease" != "24.04" ] ; then  
 while true; do
 #wget --load-cookies /tmp/cookies_lemp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lemp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
 wget --load-cookies /tmp/cookies_lemp.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/lempNEW.tar.gz" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
