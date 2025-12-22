@@ -554,10 +554,10 @@ apt-get install -y  acl
 
 
 echo ">>> Fixing libncurses5 library issue..."
-wget -q http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb
-wget -q http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb
-dpkg -i libtinfo5_6.4-2_amd64.deb libncurses5_6.4-2_amd64.deb
-rm -f libtinfo5_6.4-2_amd64.deb libncurses5_6.4-2_amd64.deb
+ 
+wget -q -O /tmp/libtinfo5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb  && dpkg -i /tmp/libtinfo5_6.4-2_amd64.deb   && rm /tmp/libtinfo5_6.4-2_amd64.deb  
+wget -q -O /tmp/libncurses5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb  && dpkg -i /tmp/libncurses5_6.4-2_amd64.deb   && rm /tmp/libncurses5_6.4-2_amd64.deb 
+
 
 
 echo ">>> Setting up user and directories..."
