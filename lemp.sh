@@ -368,7 +368,7 @@ sudo chown lemp:lemp /home/lemp/*
    fi  
    
  
-
+   
 if [ "$osname" == "CentOS" ]; then
 yum -y update
 yum -y dialog
@@ -561,9 +561,9 @@ rm -f /tmp/mariadb.tar.gz
 
 echo ">>> 4. Installing dependencies (2025 Ubuntu 24.04)..."
 apt-get update
-#apt-get install -y libaio1t64 acl libncurses6 libtinfo6 wget tar
- wget -q -O /tmp/libtinfo5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb  && dpkg -i /tmp/libtinfo5_6.4-2_amd64.deb   && rm /tmp/libtinfo5_6.4-2_amd64.deb  
- wget -q -O /tmp/libncurses5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb  && dpkg -i /tmp/libncurses5_6.4-2_amd64.deb   && rm /tmp/libncurses5_6.4-2_amd64.deb 
+apt-get install -y libaio1t64 acl libncurses6 libtinfo6 wget tar
+# wget -q -O /tmp/libtinfo5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb  && dpkg -i /tmp/libtinfo5_6.4-2_amd64.deb   && rm /tmp/libtinfo5_6.4-2_amd64.deb  
+# wget -q -O /tmp/libncurses5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb  && dpkg -i /tmp/libncurses5_6.4-2_amd64.deb   && rm /tmp/libncurses5_6.4-2_amd64.deb 
 
 echo ">>> 5. Setting up permissions..."
 groupadd -f mysql
@@ -653,19 +653,13 @@ sleep 2
 mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"  
 mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
 
- sudo apt install libonig5
-
 fi
 
 
-
-
-
- if [ $mongoDB = "y" ]     ;then
+if [ "$mongoDB" = "y" ]; then
 
 # ==========================================================
-# FINAL REPAIRED INSTALLER - MongoDB 7.0
-# Logic: Clean Install -> Start NoAuth -> Create User -> Enable Auth
+# REPAIRED INSTALLER - MongoDB 7.0 for Ubuntu 24.04 (2025)
 # ==========================================================
 
 # --- Variables ---
@@ -675,31 +669,26 @@ LOG_DIR="$INSTALL_DIR/log"
 CONFIG_FILE="$INSTALL_DIR/mongod.conf"
 USER="mongodb"
 GROUP="mongodb"
- 
 
- 
 MONGO_VER="7.0.14"
+# Using Ubuntu 22.04 binary package for compatibility with 24.04
 MONGO_URL="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz"
 SHELL_VER="2.3.8"
 SHELL_URL="https://downloads.mongodb.com/compass/mongosh-${SHELL_VER}-linux-x64-openssl3.tgz"
 
-# --- 1. CLEANUP (Factory Reset) ---
-echo ">>> [1/8] Wiping previous installation..."
+# --- 1. CLEANUP ---
+echo ">>> [1/8] Cleaning up previous installation..."
 systemctl stop mongodb 2>/dev/null
 pkill -f mongod 2>/dev/null
 rm -f /etc/systemd/system/mongodb.service
 systemctl daemon-reload
-
-# ?????: ???? ???? ??? ?????? ?? ???? ???? ?? ???
-if [ -d "$INSTALL_DIR" ]; then
-    echo ">>> Removing old data to ensure clean user creation..."
-    rm -rf "$INSTALL_DIR"
-fi
+[ -d "$INSTALL_DIR" ] && rm -rf "$INSTALL_DIR"
 
 # --- 2. Dependencies ---
 echo ">>> [2/8] Installing Dependencies..."
 apt-get update
-apt-get install -y wget tar libcurl4 libgssapi-krb5-2 openssl acl
+# Install required libraries for 2025 environment
+apt-get install -y wget tar libcurl4 libgssapi-krb5-2 openssl acl libssl3
 
 # --- 3. User Setup ---
 echo ">>> [3/8] Setting up User..."
@@ -708,27 +697,32 @@ if ! getent passwd "$USER" > /dev/null 2>&1; then
     useradd -r -g "$GROUP" -s /bin/false "$USER"
 fi
 
-mkdir -p "$DATA_DIR"
-mkdir -p "$LOG_DIR"
+mkdir -p "$DATA_DIR" "$LOG_DIR"
 
-# --- 4. Download ---
+# --- 4. Download & Extract ---
 echo ">>> [4/8] Downloading Files..."
-wget -q --show-progress -O mongodb.tgz "$MONGO_URL"
-tar -xf mongodb.tgz -C "$INSTALL_DIR" --strip-components=1
-rm -f mongodb.tgz
+wget -q --show-progress -O /tmp/mongodb.tgz "$MONGO_URL"
+tar -xf /tmp/mongodb.tgz -C /tmp
+# Locate the extracted directory and move contents
+EXTRACTED_MONGO=$(ls -d /tmp/mongodb-linux-x86_64-ubuntu2204-*)
+mkdir -p "$INSTALL_DIR"
+mv "$EXTRACTED_MONGO"/* "$INSTALL_DIR/"
+rm -rf "$EXTRACTED_MONGO" /tmp/mongodb.tgz
 
-wget -q --show-progress -O mongosh.tgz "$SHELL_URL"
+wget -q --show-progress -O /tmp/mongosh.tgz "$SHELL_URL"
 mkdir -p /tmp/mshell
-tar -xf mongosh.tgz -C /tmp/mshell --strip-components=1
+tar -xf /tmp/mongosh.tgz -C /tmp/mshell --strip-components=1
 mv /tmp/mshell/bin/mongosh "$INSTALL_DIR/bin/"
-rm -rf /tmp/mshell mongosh.tgz
+rm -rf /tmp/mshell /tmp/mongosh.tgz
 
 # --- 5. Config (Phase 1: NO AUTH) ---
-echo ">>> [5/8] Configuring (Security Disabled initially)..."
+echo ">>> [5/8] Configuring (Non-Auth mode)..."
 
 cat > "$CONFIG_FILE" <<EOF
 storage:
   dbPath: $DATA_DIR
+  journal:
+    enabled: true
 
 systemLog:
   destination: file
@@ -743,14 +737,16 @@ processManagement:
   timeZoneInfo: /usr/share/zoneinfo
 EOF
 
-# Permissions
+# Permissions (Fixing access issues in Ubuntu 24.04)
 chown -R "$USER":"$GROUP" "$INSTALL_DIR"
-setfacl -m u:"$USER":rx /home/lemp
+chmod -R 755 "$INSTALL_DIR"
+chmod +x /home/lemp
+setfacl -R -m u:"$USER":rwx "$INSTALL_DIR"
 
-# Systemd Service
+# Systemd Service (Modified to bypass ProtectHome security)
 cat > /etc/systemd/system/mongodb.service <<EOF
 [Unit]
-Description=MongoDB Server
+Description=MongoDB Database Server
 After=network.target
 
 [Service]
@@ -759,7 +755,9 @@ Group=$GROUP
 Environment="PATH=$INSTALL_DIR/bin:/usr/bin:/bin"
 ExecStart=$INSTALL_DIR/bin/mongod --config $CONFIG_FILE
 Restart=on-failure
+# Critical for running inside the /home directory
 ProtectHome=false
+ReadWritePaths=$INSTALL_DIR
 
 [Install]
 WantedBy=multi-user.target
@@ -769,30 +767,34 @@ systemctl daemon-reload
 systemctl enable mongodb
 systemctl start mongodb
 
-# Symlinks
+# Symlinks for easy access
 ln -sf "$INSTALL_DIR/bin/mongosh" /usr/local/bin/mongosh
 ln -sf "$INSTALL_DIR/bin/mongod" /usr/local/bin/mongod
 
-echo ">>> Waiting for MongoDB to initialize..."
-sleep 10
+echo ">>> Waiting for MongoDB to become ready..."
+# Smart wait loop instead of static sleep
+for i in {1..15}; do
+    if "$INSTALL_DIR/bin/mongosh" --port 27017 --eval "db.adminCommand('ping')" &>/dev/null; then
+        echo "MongoDB is up!"
+        break
+    fi
+    echo "Still waiting for initialization... ($i/15)"
+    sleep 2
+done
 
 # --- 6. Create User ---
 echo ">>> [6/8] Creating Admin User..."
-
-# ???? ?? mongosh (??? ???? ????? ???????? ???? ??? ????)
 "$INSTALL_DIR/bin/mongosh" admin --eval "db.createUser({user: 'admin', pwd: '$PASSMONGO', roles: [{role: 'root', db: 'admin'}]})"
 
 if [ $? -ne 0 ]; then
-    echo "? CRITICAL: Failed to create user. Check logs."
-    cat "$LOG_DIR/mongod.log"
+    echo "❌ CRITICAL: Failed to create user. Checking logs..."
+    tail -n 20 "$LOG_DIR/mongod.log"
     exit 1
 fi
 
-# --- 7. Enable Security (Phase 2) ---
+# --- 7. Enable Security (Auth Mode) ---
 echo ">>> [7/8] Enabling Security & Restarting..."
 systemctl stop mongodb
-
-# ????? ???? ??? ????? ?? ???? ??????
 cat >> "$CONFIG_FILE" <<EOF
 
 security:
@@ -800,30 +802,30 @@ security:
 EOF
 
 systemctl start mongodb
-sleep 5
+sleep 3
 
-# --- 8. Verify ---
-echo ">>> [8/8] Testing Connection..."
-
+# --- 8. Verify Final State ---
 if systemctl is-active --quiet mongodb; then
     echo "=================================================="
-    echo "? INSTALLATION COMPLETE!"
+    echo "✅ MONGODB INSTALLATION COMPLETE!"
     echo "User: admin"
-    echo "Pass: $PASSMONGO"
-    echo "--------------------------------------------------"
-    echo "Test Command:"
-    echo "mongosh -u admin -p $PASSMONGO --authenticationDatabase admin"
+    echo "Password: $PASSMONGO"
+    echo "Connection string: mongosh -u admin -p $PASSMONGO --authenticationDatabase admin"
     echo "=================================================="
 else
-    echo "? Final restart failed. Check log:"
-    cat "$LOG_DIR/mongod.log"
+    echo "❌ Final restart failed. Check log: $LOG_DIR/mongod.log"
 fi
 
 fi
 
 
 
+ 
+
+ sudo apt install libonig5
 fi
+
+
 
 if [ "$osname" == "Ubuntu" ] ; then
 if [ -f "$file" ]
@@ -856,6 +858,9 @@ sudo rm -r /home/lemp/openssl-1.1.1c > /dev/null 2>&1
 sudo rm -r /home/lemp/openssl-1.1.1c.tar.gz > /dev/null 2>&1
 sudo sudo /etc/init.d/lemp start
 fi
+
+
+
 
 if [ "$osname" == "CentOS" ]; then
 if [ $file2 -eq 1 ]; then
