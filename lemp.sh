@@ -540,58 +540,47 @@ if  [ "$osrelease" = "24.04" ]  ;then
 # HARDCODED INSTALLER FOR UBUNTU 24.04 (No Variables)
 # ==========================================================
 cd
-
-echo ">>> Cleaning up previous installs..."
-systemctl stop mariadb 2>/dev/null
-systemctl disable mariadb 2>/dev/null
-rm -f /etc/systemd/system/mariadb.service
-rm -f /root/.my.cnf
-systemctl daemon-reload
-pkill -f mariadbd 2>/dev/null
-rm -rf /home/lemp/mysql
-
-echo ">>> Installing dependencies..."
- sleep 1
-apt-get install -y  tar    
-apt-get install -y libaio1t64  
-apt-get install -y  acl
-
-
-echo ">>> Fixing libncurses5 library issue..."
  
-wget -q -O /tmp/libtinfo5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb  && dpkg -i /tmp/libtinfo5_6.4-2_amd64.deb   && rm /tmp/libtinfo5_6.4-2_amd64.deb  
-wget -q -O /tmp/libncurses5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb  && dpkg -i /tmp/libncurses5_6.4-2_amd64.deb   && rm /tmp/libncurses5_6.4-2_amd64.deb 
+echo ">>> 1. Cleaning up previous installations..."
+systemctl stop mariadb 2>/dev/null
+pkill -f mariadbd 2>/dev/null
+rm -rf /etc/systemd/system/mariadb.service.d
+rm -rf /home/lemp/mysql
+rm -f /etc/systemd/system/mariadb.service
+rm -f /tmp/mysql.sock # Remove old socket link
+systemctl daemon-reload
+mkdir -p /home/lemp/mysql
 
+echo ">>> 2. Downloading MariaDB 10.11.6 Binary..."
+URL="https://archive.mariadb.org/mariadb-10.11.6/bintar-linux-systemd-x86_64/mariadb-10.11.6-linux-systemd-x86_64.tar.gz"
+wget -O /tmp/mariadb.tar.gz "$URL"
 
+echo ">>> 3. Extracting files..."
+tar -xf /tmp/mariadb.tar.gz -C /home/lemp/mysql --strip-components=1
+rm -f /tmp/mariadb.tar.gz
 
-echo ">>> Setting up user and directories..."
+echo ">>> 4. Installing dependencies (2025 Ubuntu 24.04)..."
+apt-get update
+apt-get install -y libaio1t64 acl libncurses6 libtinfo6 wget tar
+# wget -q -O /tmp/libtinfo5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb  && dpkg -i /tmp/libtinfo5_6.4-2_amd64.deb   && rm /tmp/libtinfo5_6.4-2_amd64.deb  
+# wget -q -O /tmp/libncurses5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb  && dpkg -i /tmp/libncurses5_6.4-2_amd64.deb   && rm /tmp/libncurses5_6.4-2_amd64.deb 
+
+echo ">>> 5. Setting up permissions..."
 groupadd -f mysql
-useradd -r -g mysql -s /bin/bash mysql 2>/dev/null || true
+useradd -r -g mysql -s /bin/false mysql 2>/dev/null || true
 mkdir -p /home/lemp/mysql/data
-
-echo ">>> Downloading MariaDB..."
-wget -O mariadb.tar.gz https://archive.mariadb.org/mariadb-10.11.6/bintar-linux-systemd-x86_64/mariadb-10.11.6-linux-systemd-x86_64.tar.gz
-
-echo ">>> Extracting files..."
-tar -xf mariadb.tar.gz -C /home/lemp/mysql --strip-components=1
-rm -f mariadb.tar.gz
-
-echo ">>> Setting permissions..."
-sudo chown -R mysql:mysql /home/lemp/mysql
-sudo chmod 755 /home/lemp/mysql
-sudo chmod +x /home/lemp
+chmod +x /home/lemp
 chown -R mysql:mysql /home/lemp/mysql
-setfacl -m u:mysql:rx /home/lemp
+chmod -R 755 /home/lemp/mysql
+setfacl -R -m u:mysql:rwx /home/lemp/mysql
 
-echo ">>> Initializing database..."
-cd /home/lemp/mysql
-su -s /bin/bash mysql -c "./scripts/mariadb-install-db --no-defaults --basedir=/home/lemp/mysql --datadir=/home/lemp/mysql/data --auth-root-authentication-method=normal"
-
-echo ">>> Creating configuration file..."
+echo ">>> 6. Generating my.cnf with socket definition..."
 cat > /home/lemp/mysql/my.cnf <<EOF
 [client]
-port = 3306
-socket = /home/lemp/mysql/mysql.sock
+socket=/home/lemp/mysql/mysql.sock
+
+[mysql]
+socket=/home/lemp/mysql/mysql.sock
 
 [mysqld]
 user = mysql
@@ -599,20 +588,23 @@ port = 3306
 basedir = /home/lemp/mysql
 datadir = /home/lemp/mysql/data
 socket = /home/lemp/mysql/mysql.sock
-pid-file = /home/lemp/mysql/mysql.pid
-bind-address = 0.0.0.0
 log-error = /home/lemp/mysql/mariadb.err
-lc-messages-dir = /home/lemp/mysql/share
-lc-messages = en_US
-max_connections = 500
-innodb_buffer_pool_size = 256M
+pid-file = /home/lemp/mysql/mariadb.pid
+innodb_use_native_aio = 0
 EOF
-chown mysql:mysql /home/lemp/mysql/my.cnf
 
-echo ">>> Creating Systemd service..."
+echo ">>> 7. Initializing MariaDB..."
+/home/lemp/mysql/scripts/mariadb-install-db \
+    --defaults-file=/home/lemp/mysql/my.cnf \
+    --user=mysql \
+    --basedir=/home/lemp/mysql \
+    --datadir=/home/lemp/mysql/data \
+    --auth-root-authentication-method=normal
+
+echo ">>> 8. Creating Systemd Service..."
 cat > /etc/systemd/system/mariadb.service <<EOF
 [Unit]
-Description=MariaDB Database Server (Custom Install)
+Description=MariaDB 10.11.6 Custom Server
 After=network.target
 
 [Service]
@@ -620,46 +612,48 @@ Type=simple
 User=mysql
 Group=mysql
 ExecStart=/home/lemp/mysql/bin/mariadbd --defaults-file=/home/lemp/mysql/my.cnf
-TimeoutSec=300
-PrivateTmp=true
 Restart=on-failure
 ProtectHome=false
+ReadWritePaths=/home/lemp/mysql
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
+echo ">>> 9. Starting MariaDB..."
 systemctl daemon-reload
 systemctl enable mariadb
 systemctl start mariadb
+
+echo ">>> 10. Finalizing and Fixing Socket..."
 sleep 5
 
-echo ">>> Finalizing..."
 if systemctl is-active --quiet mariadb; then
-    # Set Root Password to 'fardin'
+    # Set Root password
     /home/lemp/mysql/bin/mariadb-admin -u root --socket=/home/lemp/mysql/mysql.sock password "$SQL"
     
-    # Create auto-login config for root
-    cat > /root/.my.cnf <<EOF
-[client]
-socket=/home/lemp/mysql/mysql.sock
-user=root
-password=$SQL
-EOF
-    chmod 600 /root/.my.cnf
+    # Fix the Socket Error: Link the custom socket to the standard location
+    ln -sf /home/lemp/mysql/mysql.sock /tmp/mysql.sock
     
-sudo ln -s /home/lemp/mysql/bin/* /usr/local/bin/
-
-    echo "? SUCCESS! Connected via: mysql-custom"
+    # Symlink binaries
+    ln -sf /home/lemp/mysql/bin/mariadb /usr/bin/mysql
+    ln -sf /home/lemp/mysql/bin/mariadb-admin /usr/bin/mysqladmin
+    
+    echo "✅ Success! Installation completed for 2025."
+    echo "You can now connect using: mysql -u root -p"
 else
-    echo "? FAILED. Check log: /home/lemp/mysql/mariadb.err"
+    echo "❌ Start failed. Error log below:"
+    [ -f /home/lemp/mysql/mariadb.err ] && tail -n 20 /home/lemp/mysql/mariadb.err
 fi
 
+
+      
 
 sleep 2
 mysql -uroot -p"$SQL" -e "CREATE DATABASE phpmyadmin"  
 mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
 
+ 
 fi
 
 
