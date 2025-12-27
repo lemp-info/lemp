@@ -612,6 +612,11 @@ Type=simple
 User=mysql
 Group=mysql
 ExecStart=/home/lemp/mysql/bin/mariadbd --defaults-file=/home/lemp/mysql/my.cnf
+
+ExecStartPost=/usr/bin/ln -sf /home/lemp/mysql/mysql.sock /tmp/mysql.sock
+
+ExecStopPost=/usr/bin/rm -f /tmp/mysql.sock
+
 Restart=on-failure
 ProtectHome=false
 ReadWritePaths=/home/lemp/mysql
