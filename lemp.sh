@@ -282,6 +282,7 @@ fi
 
 if [ "$osrelease" == "24.04" ] ; then  
 sudo apt install libzip4
+sudo apt install libonig5
 apt install python3-pip -y
 pip3 install gdown --break-system-packages  
  pip3 install --upgrade gdown   
