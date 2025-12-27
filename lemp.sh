@@ -561,9 +561,9 @@ rm -f /tmp/mariadb.tar.gz
 
 echo ">>> 4. Installing dependencies (2025 Ubuntu 24.04)..."
 apt-get update
-apt-get install -y libaio1t64 acl libncurses6 libtinfo6 wget tar
-# wget -q -O /tmp/libtinfo5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb  && dpkg -i /tmp/libtinfo5_6.4-2_amd64.deb   && rm /tmp/libtinfo5_6.4-2_amd64.deb  
-# wget -q -O /tmp/libncurses5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb  && dpkg -i /tmp/libncurses5_6.4-2_amd64.deb   && rm /tmp/libncurses5_6.4-2_amd64.deb 
+# apt-get install -y libaio1t64 acl libncurses6 libtinfo6 wget tar
+ wget -q -O /tmp/libtinfo5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013231/libtinfo5_6.4-2_amd64.deb  && dpkg -i /tmp/libtinfo5_6.4-2_amd64.deb   && rm /tmp/libtinfo5_6.4-2_amd64.deb  
+ wget -q -O /tmp/libncurses5_6.4-2_amd64.deb  http://launchpadlibrarian.net/648013227/libncurses5_6.4-2_amd64.deb  && dpkg -i /tmp/libncurses5_6.4-2_amd64.deb   && rm /tmp/libncurses5_6.4-2_amd64.deb 
 
 echo ">>> 5. Setting up permissions..."
 groupadd -f mysql
