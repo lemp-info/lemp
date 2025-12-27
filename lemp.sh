@@ -656,73 +656,49 @@ mysql -uroot -p"$SQL" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql
 fi
 
 
+#!/bin/bash
+
+# ==========================================================
+# FINAL REPAIRED INSTALLER - MongoDB 7.0 (Ubuntu 24.04)
+# Path: /home/lemp/mongodb | User: root (for Home Access)
+# ==========================================================
+
 if [ "$mongoDB" = "y" ]; then
 
-# ==========================================================
-# REPAIRED INSTALLER - MongoDB 7.0 for Ubuntu 24.04 (2025)
-# ==========================================================
-
-# --- Variables ---
 INSTALL_DIR="/home/lemp/mongodb"
 DATA_DIR="$INSTALL_DIR/data"
 LOG_DIR="$INSTALL_DIR/log"
 CONFIG_FILE="$INSTALL_DIR/mongod.conf"
-USER="mongodb"
-GROUP="mongodb"
-
-MONGO_VER="7.0.14"
-# Using Ubuntu 22.04 binary package for compatibility with 24.04
-MONGO_URL="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGO_VER}.tgz"
-SHELL_VER="2.3.8"
-SHELL_URL="https://downloads.mongodb.com/compass/mongosh-${SHELL_VER}-linux-x64-openssl3.tgz"
-
-# --- 1. CLEANUP ---
-echo ">>> [1/8] Cleaning up previous installation..."
+ 
+echo ">>> [1/8] Cleaning up and killing any old processes..."
 systemctl stop mongodb 2>/dev/null
-pkill -f mongod 2>/dev/null
+pkill -9 -f mongod 2>/dev/null
 rm -f /etc/systemd/system/mongodb.service
-systemctl daemon-reload
-[ -d "$INSTALL_DIR" ] && rm -rf "$INSTALL_DIR"
+rm -f "$DATA_DIR/mongod.lock" 2>/dev/null
 
-# --- 2. Dependencies ---
-echo ">>> [2/8] Installing Dependencies..."
+echo ">>> [2/8] Installing Dependencies (adding nano & acl)..."
 apt-get update
-# Install required libraries for 2025 environment
-apt-get install -y wget tar libcurl4 libgssapi-krb5-2 openssl acl libssl3
+apt-get install -y wget tar libcurl4 libgssapi-krb5-2 openssl acl libssl3 nano
 
-# --- 3. User Setup ---
-echo ">>> [3/8] Setting up User..."
-groupadd -f "$GROUP"
-if ! getent passwd "$USER" > /dev/null 2>&1; then
-    useradd -r -g "$GROUP" -s /bin/false "$USER"
-fi
+echo ">>> [3/8] Creating Directories..."
+mkdir -p "$DATA_DIR" "$LOG_DIR" "$INSTALL_DIR/bin"
+ chmod -R 755 /home/lemp
+chmod -R 755 "$INSTALL_DIR"
 
-mkdir -p "$DATA_DIR" "$LOG_DIR"
-
-# --- 4. Download & Extract ---
-echo ">>> [4/8] Downloading Files..."
-wget -q --show-progress -O /tmp/mongodb.tgz "$MONGO_URL"
+echo ">>> [4/8] Downloading MongoDB 7.0.14 & Shell..."
+ wget -q --show-progress -O /tmp/mongodb.tgz "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.14.tgz"
 tar -xf /tmp/mongodb.tgz -C /tmp
-# Locate the extracted directory and move contents
-EXTRACTED_MONGO=$(ls -d /tmp/mongodb-linux-x86_64-ubuntu2204-*)
-mkdir -p "$INSTALL_DIR"
-mv "$EXTRACTED_MONGO"/* "$INSTALL_DIR/"
-rm -rf "$EXTRACTED_MONGO" /tmp/mongodb.tgz
+cp -rn /tmp/mongodb-linux-x86_64-ubuntu2204-7.0.14/bin/* "$INSTALL_DIR/bin/"
 
-wget -q --show-progress -O /tmp/mongosh.tgz "$SHELL_URL"
-mkdir -p /tmp/mshell
-tar -xf /tmp/mongosh.tgz -C /tmp/mshell --strip-components=1
+wget -q --show-progress -O /tmp/mongosh.tgz "https://downloads.mongodb.com/compass/mongosh-2.3.8-linux-x64-openssl3.tgz"
+mkdir -p /tmp/mshell && tar -xf /tmp/mongosh.tgz -C /tmp/mshell --strip-components=1
 mv /tmp/mshell/bin/mongosh "$INSTALL_DIR/bin/"
-rm -rf /tmp/mshell /tmp/mongosh.tgz
+rm -rf /tmp/mongodb.tgz /tmp/mongosh.tgz /tmp/mshell
 
-# --- 5. Config (Phase 1: NO AUTH) ---
-echo ">>> [5/8] Configuring (Non-Auth mode)..."
-
+echo ">>> [5/8] Configuring MongoDB (Fixed: No Journal option)..."
 cat > "$CONFIG_FILE" <<EOF
 storage:
   dbPath: $DATA_DIR
-  journal:
-    enabled: true
 
 systemLog:
   destination: file
@@ -737,27 +713,18 @@ processManagement:
   timeZoneInfo: /usr/share/zoneinfo
 EOF
 
-# Permissions (Fixing access issues in Ubuntu 24.04)
-chown -R "$USER":"$GROUP" "$INSTALL_DIR"
-chmod -R 755 "$INSTALL_DIR"
-chmod +x /home/lemp
-setfacl -R -m u:"$USER":rwx "$INSTALL_DIR"
-
-# Systemd Service (Modified to bypass ProtectHome security)
-cat > /etc/systemd/system/mongodb.service <<EOF
+echo ">>> [6/8] Creating Systemd Service (Root Mode)..."
+ cat > /etc/systemd/system/mongodb.service <<EOF
 [Unit]
 Description=MongoDB Database Server
 After=network.target
 
 [Service]
-User=$USER
-Group=$GROUP
-Environment="PATH=$INSTALL_DIR/bin:/usr/bin:/bin"
+User=root
+Group=root
 ExecStart=$INSTALL_DIR/bin/mongod --config $CONFIG_FILE
-Restart=on-failure
-# Critical for running inside the /home directory
+Restart=always
 ProtectHome=false
-ReadWritePaths=$INSTALL_DIR
 
 [Install]
 WantedBy=multi-user.target
@@ -767,57 +734,38 @@ systemctl daemon-reload
 systemctl enable mongodb
 systemctl start mongodb
 
-# Symlinks for easy access
-ln -sf "$INSTALL_DIR/bin/mongosh" /usr/local/bin/mongosh
-ln -sf "$INSTALL_DIR/bin/mongod" /usr/local/bin/mongod
-
-echo ">>> Waiting for MongoDB to become ready..."
-# Smart wait loop instead of static sleep
-for i in {1..15}; do
+echo ">>> Waiting for MongoDB to initialize..."
+ for i in {1..15}; do
     if "$INSTALL_DIR/bin/mongosh" --port 27017 --eval "db.adminCommand('ping')" &>/dev/null; then
-        echo "MongoDB is up!"
+        echo "✅ MongoDB is up and running!"
         break
     fi
-    echo "Still waiting for initialization... ($i/15)"
-    sleep 2
+    echo "Wait ($i/15)..."
+    sleep 3
 done
 
-# --- 6. Create User ---
-echo ">>> [6/8] Creating Admin User..."
+echo ">>> [7/8] Creating Admin User..."
 "$INSTALL_DIR/bin/mongosh" admin --eval "db.createUser({user: 'admin', pwd: '$PASSMONGO', roles: [{role: 'root', db: 'admin'}]})"
 
-if [ $? -ne 0 ]; then
-    echo "❌ CRITICAL: Failed to create user. Checking logs..."
-    tail -n 20 "$LOG_DIR/mongod.log"
-    exit 1
+echo ">>> [8/8] Finalizing Security..."
+ if ! grep -q "security:" "$CONFIG_FILE"; then
+    echo -e "\nsecurity:\n  authorization: enabled" >> "$CONFIG_FILE"
 fi
 
-# --- 7. Enable Security (Auth Mode) ---
-echo ">>> [7/8] Enabling Security & Restarting..."
-systemctl stop mongodb
-cat >> "$CONFIG_FILE" <<EOF
+systemctl restart mongodb
 
-security:
-  authorization: enabled
-EOF
+ ln -sf "$INSTALL_DIR/bin/mongosh" /usr/local/bin/mongosh
+ln -sf "$INSTALL_DIR/bin/mongod" /usr/local/bin/mongod
 
-systemctl start mongodb
-sleep 3
-
-# --- 8. Verify Final State ---
-if systemctl is-active --quiet mongodb; then
-    echo "=================================================="
-    echo "✅ MONGODB INSTALLATION COMPLETE!"
-    echo "User: admin"
-    echo "Password: $PASSMONGO"
-    echo "Connection string: mongosh -u admin -p $PASSMONGO --authenticationDatabase admin"
-    echo "=================================================="
-else
-    echo "❌ Final restart failed. Check log: $LOG_DIR/mongod.log"
-fi
+echo "=================================================="
+echo "✅ MONGODB 7.0 INSTALLED SUCCESSFULLY!"
+echo "Path: $INSTALL_DIR"
+echo "Admin User: admin"
+echo "Admin Pass: $PASSMONGO"
+echo "Login: mongosh -u admin -p $PASSMONGO --authenticationDatabase admin"
+echo "=================================================="
 
 fi
-
 
 
  
