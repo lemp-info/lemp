@@ -19,9 +19,6 @@ sudo apt install -y lsb-core
 sudo apt install -y dialog 
 sudo apt install -y whiptail
 
-yum -y update
-yum -y dialog
-yum install redhat-lsb-core -y
 
 osname=$(lsb_release -si)
 osrelease=$(lsb_release -sr)
@@ -375,6 +372,10 @@ sudo chown lemp:lemp /home/lemp/*
  
 
 if [ "$osname" == "CentOS" ]; then
+yum -y update
+yum -y dialog
+yum install redhat-lsb-core -y
+
 yum remove  -y httpd
 yum istall  -y wget
 yum -y install libxml2 libxml2-devel
