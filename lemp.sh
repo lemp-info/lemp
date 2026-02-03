@@ -294,7 +294,7 @@ rm -rf /home/lemp/script/lemp
 mv /home/lemp/script/lemp2 /home/lemp/script/lemp
 rm -r /home/lemp/script/mysql.server
 rm -r /home/lemp/script/my.cnf
- 
+mv /home/lemp/php/lib/php.ini /home/lemp/php/etc/php.ini
 
   fi
  
