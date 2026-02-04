@@ -141,6 +141,12 @@ echo -e "${jeshile} ?         NEW password for your MongoDB          ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
 
+
+PHPV24=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
+"1" "PHP 7.4.16" \
+"2" "PHP 8.3.14"   3>&1 1>&2 2>&3)
+
+
 if (whiptail --title "mongoDB" --yesno "Do you want to install mongoDB ?" 8 78); then   
 mongoDB="y"	 
 while true; do
@@ -157,13 +163,6 @@ mongoDB="n"
 fi 
 else
 mongoDB="n"
-
-
-PHPV24=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
-"1" "PHP 7.4.16" \
-"2" "PHP 8.3.14"   3>&1 1>&2 2>&3)
-
-
 fi		
  
 
