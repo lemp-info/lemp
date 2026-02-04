@@ -140,6 +140,7 @@ echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo -e "${jeshile} ?         NEW password for your MongoDB          ? \e[0m"
 echo -e "${jeshile} ???????????????????????????????????????????????? \e[0m"
 echo " " 
+
 if (whiptail --title "mongoDB" --yesno "Do you want to install mongoDB ?" 8 78); then   
 mongoDB="y"	 
 while true; do
@@ -156,6 +157,13 @@ mongoDB="n"
 fi 
 else
 mongoDB="n"
+
+
+PHPV24=$(whiptail --title " PHP Version"  --menu "What PHP Version do you want to install ?" 15 60 4  \
+"1" "PHP 7.4.16" \
+"2" "PHP 8.3.14"   3>&1 1>&2 2>&3)
+
+
 fi		
  
 
@@ -288,7 +296,14 @@ tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
 rm -r /home/lemp/lempNEW.tar.gz
 sleep 2
  #export PATH="/home/lemp/node/bin:/home/lemp/php/bin:/home/lemp/openresty/bin:/home/lemp/openresty/nginx/sbin:/home/lemp/proftpd/sbin:$PATH"
- 
+
+if [ "$PHPV24" == "1" ]   ; then
+  mv /home/lemp/php  /home/lemp/php8_3_14
+  /usr/local/bin/gdown --id 1lOFv7x8rlNE0GZbm7P-XXNogP2GVoIzF  -O /home/lemp/php7-4.tar.gz
+  sleep 1
+  tar -xvzf  /home/lemp/php7-4.tar.gz -C /home/lemp 
+  rm -r /home/lemp/php7-4.tar.gz
+fi
  
 rm -rf /home/lemp/script/lemp
 mv /home/lemp/script/lemp2 /home/lemp/script/lemp
@@ -644,10 +659,10 @@ if systemctl is-active --quiet mariadb; then
     ln -sf /home/lemp/mysql/bin/mariadb /usr/bin/mysql
     ln -sf /home/lemp/mysql/bin/mariadb-admin /usr/bin/mysqladmin
     
-    echo "✅ Success! Installation completed for 2025."
+    echo "âœ… Success! Installation completed for 2025."
     echo "You can now connect using: mysql -u root -p"
 else
-    echo "❌ Start failed. Error log below:"
+    echo "âŒ Start failed. Error log below:"
     [ -f /home/lemp/mysql/mariadb.err ] && tail -n 20 /home/lemp/mysql/mariadb.err
 fi
 
@@ -742,7 +757,7 @@ systemctl start mongodb
 echo ">>> Waiting for MongoDB to initialize..."
  for i in {1..15}; do
     if "$INSTALL_DIR/bin/mongosh" --port 27017 --eval "db.adminCommand('ping')" &>/dev/null; then
-        echo "✅ MongoDB is up and running!"
+        echo "âœ… MongoDB is up and running!"
         break
     fi
     echo "Wait ($i/15)..."
@@ -763,7 +778,7 @@ systemctl restart mongodb
 ln -sf "$INSTALL_DIR/bin/mongod" /usr/local/bin/mongod
 
 echo "=================================================="
-echo "✅ MONGODB 7.0 INSTALLED SUCCESSFULLY!"
+echo "âœ… MONGODB 7.0 INSTALLED SUCCESSFULLY!"
 echo "Path: $INSTALL_DIR"
 echo "Admin User: admin"
 echo "Admin Pass: $PASSMONGO"
