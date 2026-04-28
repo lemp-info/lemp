@@ -313,6 +313,32 @@ mv /home/lemp/php/lib/php.ini /home/lemp/php/etc/php.ini
 
 
 
+if [ "$osrelease" == "26.04" ] ; then  
+sudo apt install libzip4
+apt install python3-pip -y
+pip3 install gdown --break-system-packages  
+ pip3 install --upgrade gdown   
+/usr/local/bin/gdown https://drive.google.com/file/d/1Ol_B7oBrnHVMxjxhDglJgk4JlUgSkiUN/view?usp=sharing -O /home/lemp/lempNEW.tar.gz
+sleep 1
+tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
+rm -r /home/lemp/lempNEW.tar.gz
+sleep 2
+ #export PATH="/home/lemp/node/bin:/home/lemp/php/bin:/home/lemp/openresty/bin:/home/lemp/openresty/nginx/sbin:/home/lemp/proftpd/sbin:$PATH"
+ 
+rm -rf /home/lemp/script/lemp
+mv /home/lemp/script/lemp2 /home/lemp/script/lemp
+rm -r /home/lemp/script/mysql.server
+rm -r /home/lemp/script/my.cnf
+mv /home/lemp/php/lib/php.ini /home/lemp/php/etc/php.ini
+
+  fi
+ 
+
+
+
+
+
+
 sudo chmod -R 755 /home/lemp/script/*
 mv /home/lemp/script/* /etc/init.d/
 sudo dpkg -i  /home/lemp/libicu52_52.1-3ubuntu0.4_amd64.deb
