@@ -47,6 +47,8 @@ LEMP is a variation of the ubiquitous LAMP stack used for developing and deployi
    
      
 ## update:
+        # 2026/04/28
+     1. Add script for ubuntu 26.04
         # 2026/01/01
      1. Add script for ubuntu 24.04
      2. nginx version: openresty/1.27.1.2
