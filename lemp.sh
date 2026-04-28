@@ -884,7 +884,7 @@ sudo rm -rf /home/lemp/www/lempweb.tar.gz
 sudo ln -s /home/lemp/phpmyadmin /home/lemp/www/phpmyadmin
 
 
-if [ $MariaDB != "y" ]; then
+:'   if [ $MariaDB != "y" ]; then
 if [ $mysqlstatus = "y" ]; then
 if (whiptail --title "database phpmyadmin." --yesno "Do you want to install database phpmyadmin ?" 8 78); then   
 phpmyadmin="y"
@@ -903,7 +903,7 @@ mysql -uroot -p"$mysqlpassword" -e "CREATE DATABASE phpmyadmin"
 mysql -uroot -p"$mysqlpassword" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
 fi 
 fi
-fi
+fi '
 
  
 
