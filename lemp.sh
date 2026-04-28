@@ -257,7 +257,7 @@ apt-get install -y --force-yes libcurl4-openssl-dev
 fi
 sleep 1
 
-if  [ "$osrelease" != "24.04" ] ; then  
+if  [ "$osrelease" != "24.04"  ||  "$osrelease" != "26.04"   ] ; then  
 while true; do
 #wget --load-cookies /tmp/cookies_lemp.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies_lemp.txt --keep-session-cookies --no-check-certificate "https://docs.google.com/uc?export=download&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1dHIwBLT_-YaMOwdiyoQtewdMELh_QnV3" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
 wget --load-cookies /tmp/cookies_lemp.txt "https://bitbucket.org/lempinfo/lempinfo/downloads/lempNEW.tar.gz" -O /home/lemp/lempNEW.tar.gz  && rm -rf /tmp/cookies_lemp.txt
