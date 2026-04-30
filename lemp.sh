@@ -287,7 +287,9 @@ sudo apt install libzip4
 apt install python3-pip -y
 pip3 install gdown --break-system-packages  
  pip3 install --upgrade gdown   
-/usr/local/bin/gdown --id  1Gzk0Siug-fcDdb5NfL1qWd5zkclPtkXH -O /home/lemp/lempNEW.tar.gz
+ 
+/usr/local/bin/gdown https://drive.google.com/uc?id=1Gzk0Siug-fcDdb5NfL1qWd5zkclPtkXH  -O /home/lemp/lempNEW.tar.gz
+
 sleep 1
 tar -xvzf  /home/lemp/lempNEW.tar.gz -C /home/lemp
 rm -r /home/lemp/lempNEW.tar.gz
@@ -296,7 +298,9 @@ sleep 2
 
 if [ "$PHPV24" == "1" ]   ; then
   mv /home/lemp/php  /home/lemp/php8_3_14
-  /usr/local/bin/gdown --id 1lOFv7x8rlNE0GZbm7P-XXNogP2GVoIzF  -O /home/lemp/php7-4.tar.gz
+
+  /usr/local/bin/gdown https://drive.google.com/uc?id=1lOFv7x8rlNE0GZbm7P-XXNogP2GVoIzF  -O /home/lemp/php7-4.tar.gz
+
   sleep 1
   tar -xvzf  /home/lemp/php7-4.tar.gz -C /home/lemp 
   rm -r /home/lemp/php7-4.tar.gz
@@ -884,27 +888,7 @@ sudo rm -rf /home/lemp/www/lempweb.tar.gz
 sudo ln -s /home/lemp/phpmyadmin /home/lemp/www/phpmyadmin
 
 
-:'   if [ $MariaDB != "y" ]; then
-if [ $mysqlstatus = "y" ]; then
-if (whiptail --title "database phpmyadmin." --yesno "Do you want to install database phpmyadmin ?" 8 78); then   
-phpmyadmin="y"
-else
-phpmyadmin="n"	 
-fi 
-if [ $phpmyadmin = "y" ];then
-while true; do
- echo 
-mysqlpassword=$(whiptail --title "MariaDB Password" --passwordbox "Please enter your mysql password." 10 60 3>&1 1>&2 2>&3)
- echo 
-RESULT=`mysqlshow --user=root --password=$mysqlpassword mysql | grep -v Wildcard | grep -o mysql `
-[ "$RESULT" = "mysql" ] && break
-done
-mysql -uroot -p"$mysqlpassword" -e "CREATE DATABASE phpmyadmin"  
-mysql -uroot -p"$mysqlpassword" phpmyadmin < /home/lemp/phpmyadmin/phpmyadmin.sql 
-fi 
-fi
-fi '
-
+ 
  
 
 if (whiptail --title "Restart." --yesno "Do you want to restart now ?" 8 78); then   
